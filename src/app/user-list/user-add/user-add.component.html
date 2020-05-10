@@ -1,0 +1,56 @@
+
+    <div class="card" >
+        <div class="card-header card-header-danger mat-dialog-title">
+            <h4 class="card-title ">Ajouter Utilisateur</h4>
+        </div>
+
+            <form  (ngSubmit)="submit()" #formControl="ngForm">
+
+                <div class="form">
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="nom" [(ngModel)]="data.nom" name="nom" required>
+                        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="form">
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="prenom" [(ngModel)]="data.prenom" name="prenom">
+                    </mat-form-field>
+                </div>
+
+                <div class="form">
+                    <mat-form-field >
+                        <input matInput #inputstate placeholder="Login 10 charactère au max" [(ngModel)]="data.login" name="login" maxlength="10" required >
+                        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+                        <mat-hint align="end">{{inputstate.value?.length || 0}}/10</mat-hint>
+                    </mat-form-field>
+                </div>
+
+                <div class="form">
+                    <mat-form-field >
+                        <input matInput placeholder="email" [(ngModel)]="data.email" name="email" email>
+                        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="form">
+                    <mat-form-field >
+                        <input matInput type="password" placeholder="Password" [(ngModel)]="data.password" name="password" required>
+                        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="form">
+                    <mat-form-field >
+                        <input matInput placeholder="telephone" [(ngModel)]="data.telehpone" name="telephone">
+                    </mat-form-field>
+                </div>
+
+                <div mat-dialog-actions>
+                    <button mat-button [type]="submit" [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="addUser()" class="btn btn-danger pull-right">Ajouter</button>
+                    <button mat-button (click)="onNoClick()" tabindex="-1">Annuler</button>
+                </div>
+            </form>
+
+    </div>

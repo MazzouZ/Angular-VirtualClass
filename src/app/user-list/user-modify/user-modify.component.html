@@ -1,0 +1,56 @@
+
+<div class="card" >
+    <div class="card-header card-header-danger mat-dialog-title">
+        <h4 class="card-title ">Ajouter Utilisateur</h4>
+    </div>
+
+    <form  (ngSubmit)="submit()" #formControl="ngForm">
+
+        <div class="form">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="nom" value="{{data.user.nom}}" [(ngModel)]="data.user.nom" name="nom" required>
+                <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="form">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="prenom" value="{{data.user.prenom}}" [(ngModel)]="data.user.prenom" name="prenom">
+            </mat-form-field>
+        </div>
+
+        <div class="form">
+            <mat-form-field >
+                <input matInput #inputstate placeholder="Login" value="{{data.user.login}}" [(ngModel)]="data.user.login" name="login" maxlength="10" required >
+                <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+                <mat-hint align="end">{{inputstate.value?.length || 0}}/10</mat-hint>
+            </mat-form-field>
+        </div>
+
+        <div class="form">
+            <mat-form-field >
+                <input matInput placeholder="email" [(ngModel)]="data.user.email" value="{{data.user.email}}" name="email" email>
+                <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="form">
+            <mat-form-field >
+                <input matInput type="password" placeholder="Password" [(ngModel)]="data.user.password" value="{{data.user.password}}" name="password" autocomplete="on" required>
+                <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="form">
+            <mat-form-field>
+                <input matInput placeholder="telephone" [(ngModel)]="data.user.telehpone" value="{{data.user.telephone}}" name="telephone">
+            </mat-form-field>
+        </div>
+
+        <div mat-dialog-actions>
+            <button mat-button [type]="submit" [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="updateUser()" class="btn btn-danger pull-right">Modifier</button>
+            <button mat-button (click)="onNoClick()" tabindex="-1">Annuler</button>
+        </div>
+    </form>
+
+</div>

@@ -8,10 +8,10 @@ declare var $: any;
 export class NotificationsComponent implements OnInit {
 
   constructor() { }
-  showNotification(from, align){
+  showNotification(from, align,myColor=1){
       const type = ['','info','success','warning','danger'];
 
-      const color = Math.floor((Math.random() * 4) + 1);
+      const color = myColor/*Math.floor((Math.random() * 4) + 1)*/;
 
       $.notify({
           icon: "notifications",

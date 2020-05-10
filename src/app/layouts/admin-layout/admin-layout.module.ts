@@ -36,10 +36,10 @@ import {MatSelectModule} from '@angular/material/select';
     UserProfileComponent,
     TableListComponent,
     TypographyComponent,
-    IconsComponent,
-    MapsComponent,
+   /* IconsComponent,*/
+    /*MapsComponent,*/
     NotificationsComponent,
-    UpgradeComponent,
+   /* UpgradeComponent,*/
   ]
 })
 
