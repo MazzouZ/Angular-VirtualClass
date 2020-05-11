@@ -8,6 +8,7 @@ import {UserAddComponent} from './user-add/user-add.component';
 import {UserModifyComponent} from './user-modify/user-modify.component';
 import {NotificationsComponent} from '../notifications/notifications.component';
 import {CrudService} from '../Services/crud.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export interface UserData {
   nom      :string;
@@ -32,7 +33,7 @@ export class UserListComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  constructor(private crudService:CrudService,public dialog: MatDialog) {
+  constructor(private crudService:CrudService,public dialog: MatDialog,private _snackBar: MatSnackBar) {
   }
   ngOnInit() {
     this.getUsers();
@@ -68,7 +69,14 @@ export class UserListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.getUsers();
-    });
+      
+        this._snackBar.open('Element Created',"",{
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass: ['snackbarSuccess']
+        });
+      });
+    
   }
 
   openModifyDialog(row) {
@@ -79,10 +87,22 @@ export class UserListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.getUsers();
-    });
+      
+        this._snackBar.open('Element Modified',"",{
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass: 'snackbarEdit'
+        });
+      });
+    
   }
   deleteUser(row){
     this.crudService.deleteItem(row);
     this.getUsers();
+    this._snackBar.open('Element Deleted',"",{
+      duration: 2000,
+      verticalPosition: 'top',
+      panelClass: ['snackbarDelete']
+    });
   }
 }

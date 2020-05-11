@@ -10,3 +10,15 @@ table {
 td, th {
     width: 25%;
 }
+::ng-deep .snackbarSuccess{
+    background: green;
+    size: 20px;
+  }
+  ::ng-deep .snackbarEdit{
+    background: rgb(243, 243, 37); 
+    color: black;
+  }
+  ::ng-deep .snackbarDelete{
+    background: rgb(182, 21, 21);
+    
+  }
