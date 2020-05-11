@@ -1,7 +1,7 @@
 
 <div class="card" >
     <div class="card-header card-header-danger mat-dialog-title">
-        <h4 class="card-title ">Ajouter Utilisateur</h4>
+        <h4 class="card-title ">Modifier Utilisateur</h4>
     </div>
 
     <form  (ngSubmit)="submit()" #formControl="ngForm">
@@ -48,7 +48,7 @@
         </div>
 
         <div mat-dialog-actions>
-            <button mat-button [type]="submit" [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="updateUser()" class="btn btn-danger pull-right">Modifier</button>
+            <button mat-button [type]="submit" [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="updateOrg()" class="btn btn-danger pull-right">Modifier</button>
             <button mat-button (click)="onNoClick()" tabindex="-1">Annuler</button>
         </div>
     </form>

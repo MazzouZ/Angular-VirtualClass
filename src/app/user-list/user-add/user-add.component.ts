@@ -13,7 +13,7 @@ export class UserAddComponent {
 
   constructor(
       public dialogRef: MatDialogRef<UserAddComponent>,
-      @Inject(MAT_DIALOG_DATA) public data: UserData,
+      @Inject(MAT_DIALOG_DATA) public data,
       private crudService:CrudService) {}
 
   onNoClick(): void {

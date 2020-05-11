@@ -1,0 +1,62 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col col-md-12">
+              <div class="card">
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title ">Liste des Organisations</h4>
+                      <p class="card-category"> Ce tableau liste les organisations pour lesquels des accès ont été paramétrés.</p>
+                  </div>
+                  <div class="card-body">
+                  <mat-form-field>
+                      <mat-label>
+                        <mat-icon>search</mat-icon> Chercher</mat-label>
+                      <input matInput (keyup)="applyFilter($event)" placeholder="Mot Clé ...">
+                  </mat-form-field>
+                  <button mat-raised-button (click)="openAddDialog()" class="btn btn-danger pull-right">Create Organisation</button>
+              <div class="mat-elevation-z8">
+                  <table mat-table [dataSource]="dataSource" matSort>
+            <!-- photo Column ----------------------------------------------->
+                      <ng-container matColumnDef="photo">
+                          <th class="text-primary" mat-header-cell *matHeaderCellDef mat-sort-header> Photo </th>
+                          <td mat-cell *matCellDef="let row"> {{row.photo}} </td>
+                      </ng-container>
+            <!-- login --------------------------------------------------->
+                      <ng-container matColumnDef="label">
+                          <th class="text-primary" mat-header-cell *matHeaderCellDef mat-sort-header> Label </th>
+                          <td mat-cell *matCellDef="let row"> {{row.label}} </td>
+                      </ng-container>
+             <!-- email --------------------------------------------------->
+                      <ng-container matColumnDef="email">
+                          <th class="text-primary" mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+                          <td mat-cell *matCellDef="let row"> {{row.email}} </td>
+                      </ng-container>
+               <!-- date --------------------------------------------------->
+                      <ng-container matColumnDef="compteOrganisation">
+                          <th class="text-primary" mat-header-cell *matHeaderCellDef mat-sort-header> Compte Organisation </th>
+                          <td mat-cell *matCellDef="let row"> {{row.compteOrganisation}} </td>
+                      </ng-container>
+           <!-- LES ACTIONS --------------------------------------------------->
+                      <ng-container matColumnDef="Actions">
+                          <th class="text-primary" mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
+                          <td mat-cell *matCellDef="let row">
+                              <mat-chip-list aria-label="Fish selection" >
+                                  <button mat-raised-button selected class="btn btn-warning btn-link btn-just-icon" (click)="openModifyDialog(row)"><mat-icon>edit</mat-icon></button>
+                                      <button mat-raised-button selected class="btn btn-danger btn-link  btn-just-icon" (click)="deleteOrg(row)"><mat-icon>delete</mat-icon></button>
+                              </mat-chip-list>
+                          </td>
+                      </ng-container>
+
+                      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                      </tr>
+                  </table>
+
+                  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+              </div>
+          </div>
+              </div>
+      </div>
+  </div>
+</div>
+</div>

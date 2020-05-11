@@ -1,0 +1,38 @@
+.full-width-table {
+  width: 100%;
+}
+table {
+  width: 100%;
+}
+th.mat-sort-header-sorted {
+  color: black;
+}
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+.margin{
+  padding-left: 30px;
+}
+.padding{
+  padding-left: 35px;
+}
+.add{
+  float: right;
+  margin-bottom: 28px;
+  margin-right: 10px;
+}
+::ng-deep .snackbarSuccess{
+  background: green;
+  size: 20px;
+}
+::ng-deep .snackbarEdit{
+  background: rgb(206, 206, 25); 
+  color: black;
+}
+::ng-deep .snackbarDelete{
+  background: rgb(182, 21, 21);
+  
+}
+
+

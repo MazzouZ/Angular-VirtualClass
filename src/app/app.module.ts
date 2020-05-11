@@ -71,6 +71,10 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatDividerModule} from '@angular/material/divider';
 import { UserAddComponent } from './user-list/user-add/user-add.component';
 import { UserModifyComponent } from './user-list/user-modify/user-modify.component';
+import { EditDialogOrganisationComponent } from './organisations/edit-dialog-organisation/edit-dialog-organisation.component';
+import { AddDialogOrganisationComponent } from './organisations/add-dialog-organisation/add-dialog-organisation.component';
+import { OrganisationsComponent } from './organisations/organisations.component';
+
 
 
 
@@ -126,7 +130,8 @@ import { UserModifyComponent } from './user-list/user-modify/user-modify.compone
         MatTooltipModule,
         MatTreeModule,
         PortalModule,
-        ScrollingModule
+        ScrollingModule,
+        MatInputModule
         /* AgmCoreModule.forRoot({
            apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
          }),*/
@@ -137,6 +142,9 @@ import { UserModifyComponent } from './user-list/user-modify/user-modify.compone
     UserListComponent,
     UserAddComponent,
     UserModifyComponent,
+    OrganisationsComponent,
+    EditDialogOrganisationComponent,
+    AddDialogOrganisationComponent
 
   ],
   providers: [],
