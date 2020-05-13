@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { OrganisationElement, OrganisationsComponent } from 'app/organisations/organisations.component';
 import { CrudService } from 'app/Services/crud.service';
 import { FormControl, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-dialog-organisation',
@@ -14,7 +15,7 @@ export class AddDialogOrganisationComponent implements OnInit {
     constructor(
       public dialogRef: MatDialogRef<AddDialogOrganisationComponent>,
       @Inject(MAT_DIALOG_DATA) public data: OrganisationElement,
-      private crudService:CrudService) {}
+      private crudService:CrudService,private _snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
   }
@@ -31,6 +32,11 @@ export class AddDialogOrganisationComponent implements OnInit {
   }
   public addOrg() {
      this.crudService.addItem('organisations',this.data);
+      this._snackBar.open('Element Created',"",{
+        duration: 2000,
+        verticalPosition: 'top',
+        panelClass: ['snackbarSuccess']
+      });
   }
 
   submit() {

@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {UserData, UserListComponent} from '../user-list.component';
 import {FormControl, Validators} from '@angular/forms';
 import {CrudService} from '../../Services/crud.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-add',
@@ -14,7 +15,7 @@ export class UserAddComponent {
   constructor(
       public dialogRef: MatDialogRef<UserAddComponent>,
       @Inject(MAT_DIALOG_DATA) public data,
-      private crudService:CrudService) {}
+      private crudService:CrudService,private _snackBar: MatSnackBar) {}
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -31,6 +32,11 @@ export class UserAddComponent {
   }
   public addUser() {
      this.crudService.addItem('users',this.data);
+     this._snackBar.open('Element Created',"",{
+      duration: 2000,
+      verticalPosition: 'top',
+      panelClass: ['snackbarSuccess']
+    });
   }
 
   submit() {

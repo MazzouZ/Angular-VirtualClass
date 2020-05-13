@@ -1,0 +1,4 @@
+::ng-deep .snackbarSuccess{
+    background: green;
+    size: 20px;
+  }

@@ -69,11 +69,6 @@ export class OrganisationsComponent implements OnInit {
   
       dialogRef.afterClosed().subscribe(result => {
         this.getOrg();
-        this._snackBar.open('Element Modified',"",{
-          duration: 2000,
-          verticalPosition: 'top',
-          panelClass: 'snackbarEdit'
-        });
       });
     }
   //---------------------------------------------------------------------
@@ -82,15 +77,9 @@ export class OrganisationsComponent implements OnInit {
       width: '500px',
       data: {}
     });
-
-  dialogRef.afterClosed().subscribe(result => {
-    this.getOrg();
-    this._snackBar.open('Element Created',"",{
-      duration: 2000,
-      verticalPosition: 'top',
-      panelClass: ['snackbarSuccess']
+    dialogRef.afterClosed().subscribe(result => {
+      this.getOrg();
     });
-  });
 }
   //---------------------------------------------------------------------
   deleteOrg(row){

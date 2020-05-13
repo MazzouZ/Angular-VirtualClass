@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {UserData} from '../user-list.component';
 import {CrudService} from '../../Services/crud.service';
 import {FormControl, Validators} from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-modify',
@@ -14,7 +15,7 @@ export class UserModifyComponent {
   constructor(
       public dialogRef: MatDialogRef<UserModifyComponent>,
       @Inject(MAT_DIALOG_DATA) public data,
-      private crudService:CrudService) {}
+      private crudService:CrudService,private _snackBar: MatSnackBar) {}
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -34,6 +35,11 @@ export class UserModifyComponent {
   }
   public updateUser() {
     this.crudService.updateItem(this.data.user);
+    this._snackBar.open('Element Modified',"",{
+      duration: 2000,
+      verticalPosition: 'top',
+      panelClass: 'snackbarEdit'
+    });
   }
 
 }

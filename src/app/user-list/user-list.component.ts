@@ -69,12 +69,7 @@ export class UserListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.getUsers();
-      
-        this._snackBar.open('Element Created',"",{
-          duration: 2000,
-          verticalPosition: 'top',
-          panelClass: ['snackbarSuccess']
-        });
+
       });
     
   }
@@ -87,12 +82,7 @@ export class UserListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.getUsers();
-      
-        this._snackBar.open('Element Modified',"",{
-          duration: 2000,
-          verticalPosition: 'top',
-          panelClass: 'snackbarEdit'
-        });
+
       });
     
   }
