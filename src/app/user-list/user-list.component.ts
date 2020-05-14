@@ -42,9 +42,8 @@ export class UserListComponent implements OnInit {
     this.crudService.getItems('users').subscribe(
         (data) => {
           // @ts-ignore
-          console.log(data._embedded.users);
-          // @ts-ignore
           let listUsers:UserData[]=data._embedded.users;
+          this.dataSource=new MatTableDataSource();
           this.dataSource = new MatTableDataSource(listUsers);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
@@ -68,7 +67,10 @@ export class UserListComponent implements OnInit {
       });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.getUsers();
+      setTimeout(()=>{
+        this.getUsers();
+      },1000);
+
 
       });
     
@@ -81,14 +83,17 @@ export class UserListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.getUsers();
-
+      setTimeout(()=>{
+        this.getUsers();
+      },1000);
       });
     
   }
   deleteUser(row){
     this.crudService.deleteItem(row);
-    this.getUsers();
+    setTimeout(()=>{
+      this.getUsers();
+    },1000);
     this._snackBar.open('Element Deleted',"",{
       duration: 2000,
       verticalPosition: 'top',

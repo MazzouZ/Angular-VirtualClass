@@ -41,9 +41,8 @@ export class OrganisationsComponent implements OnInit {
     this.crudService.getItems('organisations').subscribe(
         (data) => {
           // @ts-ignore
-          console.log(data._embedded.organisations);
-          // @ts-ignore
           let listOrg:OrganisationElement[]=data._embedded.organisations;
+          this.dataSource=new MatTableDataSource();
           this.dataSource = new MatTableDataSource(listOrg);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
@@ -68,7 +67,9 @@ export class OrganisationsComponent implements OnInit {
       });
   
       dialogRef.afterClosed().subscribe(result => {
-        this.getOrg();
+        setTimeout(()=>{
+          this.getOrg();
+        },1000);
       });
     }
   //---------------------------------------------------------------------
@@ -78,13 +79,17 @@ export class OrganisationsComponent implements OnInit {
       data: {}
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.getOrg();
+      setTimeout(()=>{
+        this.getOrg();
+      },1000);
     });
 }
   //---------------------------------------------------------------------
   deleteOrg(row){
     this.crudService.deleteItem(row);
-    this.getOrg();
+    setTimeout(()=>{
+      this.getOrg();
+    },1000);
     this._snackBar.open('Element Deleted',"",{
       duration: 2000,
       verticalPosition: 'top',
