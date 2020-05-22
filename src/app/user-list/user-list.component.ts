@@ -86,6 +86,7 @@ export class UserListComponent implements OnInit {
       setTimeout(()=>{
         this.getUsers();
       },1000);
+
       });
     
   }
