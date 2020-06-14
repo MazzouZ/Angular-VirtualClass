@@ -1,0 +1,34 @@
+
+<div class="card" >
+    <div class="card-header card-header-danger mat-dialog-title">
+        <h4 class="card-title ">Modifier Cours</h4>
+    </div>
+  
+    <form  (ngSubmit)="submit()" #formControl="ngForm">
+  
+        <div class="form">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="label" value="{{data.cours.label}}" [(ngModel)]="data.cours.label" name="label" required>
+            </mat-form-field>
+        </div>
+  
+        <div class="form">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="code" value="{{data.cours.code}}" [(ngModel)]="data.cours.code" name="code">
+            </mat-form-field>
+        </div>
+  
+        <div class="form">
+            <mat-form-field >
+                <input matInput placeholder="specialite" [(ngModel)]="data.cours.specialite" value="{{data.cours.specialite}}" name="specialite">
+            </mat-form-field>
+        </div>
+  
+        <div mat-dialog-actions>
+            <button mat-button [type]="submit" [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="updateCours()" class="btn btn-danger pull-right">Modifier</button>
+            <button mat-button (click)="onNoClick()" tabindex="-1">Annuler</button>
+        </div>
+    </form>
+  
+  </div>
+  

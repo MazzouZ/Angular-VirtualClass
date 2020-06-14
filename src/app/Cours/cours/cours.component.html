@@ -1,0 +1,30 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col col-md-12">
+                <button mat-raised-button (click)="openAddDialog()" class="btn btn-danger">Create Cours</button>
+                <div *ngFor="let cours of listCours">
+                    <div class="card width">
+                        <div class="card-header card-header-danger">
+                            <h3 class="card-title ">{{ cours.label}}</h3>
+                            <h3 class="card-category">{{ cours.specialite }}</h3>
+                            <h4 class="card-category">{{ cours.code }}</h4>
+                        </div>
+                        <div class="card-body">
+
+                        </div>
+                        <div class="mat-card-actions">
+                            <button mat-icon-button [matMenuTriggerFor]="aboveMenu" class="pull-right">
+                                <mat-icon>more_horiz</mat-icon>
+                            </button>
+                            <mat-menu #aboveMenu="matMenu" yPosition="above">
+                            <button mat-menu-item (click)="openModifyDialog(cours)" >Edit</button>
+                            <button mat-menu-item (click)="deleteCours(cours)" >Delete</button>
+                            </mat-menu>
+                        </div>
+                        </div >
+                </div>
+            </div>
+        </div>
+    </div>
+</div>                

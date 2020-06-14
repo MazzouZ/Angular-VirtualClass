@@ -74,6 +74,9 @@ import { UserModifyComponent } from './user-list/user-modify/user-modify.compone
 import { EditDialogOrganisationComponent } from './organisations/edit-dialog-organisation/edit-dialog-organisation.component';
 import { AddDialogOrganisationComponent } from './organisations/add-dialog-organisation/add-dialog-organisation.component';
 import { OrganisationsComponent } from './organisations/organisations.component';
+import { CoursComponent } from './Cours/cours/cours.component';
+import { AddDialogeCoursComponent } from './Cours/add-dialog-cours/add-dialoge-cours/add-dialoge-cours.component';
+import { EditDialogeCoursComponent } from './Cours/edit-dialog-cours/edit-dialoge-cours/edit-dialoge-cours.component';
 
 
 
@@ -144,7 +147,10 @@ import { OrganisationsComponent } from './organisations/organisations.component'
     UserModifyComponent,
     OrganisationsComponent,
     EditDialogOrganisationComponent,
-    AddDialogOrganisationComponent
+    AddDialogOrganisationComponent,
+    CoursComponent,
+    AddDialogeCoursComponent,
+    EditDialogeCoursComponent
 
   ],
   providers: [],

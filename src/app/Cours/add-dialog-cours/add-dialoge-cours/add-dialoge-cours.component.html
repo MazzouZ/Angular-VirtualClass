@@ -1,0 +1,32 @@
+
+    <div class="card" >
+        <div class="card-header card-header-danger mat-dialog-title">
+            <h4 class="card-title ">Ajouter Cours</h4>
+        </div>
+  
+            <form  (ngSubmit)="submit()" #formControl="ngForm">
+  
+                <div class="form">
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="label" [(ngModel)]="data.label" name="label" required>
+                    </mat-form-field>
+                </div>
+  
+                <div class="form">
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="code" [(ngModel)]="data.code" name="code" required>
+                    </mat-form-field>
+                </div>
+                <div class="form">
+                    <mat-form-field >
+                        <input matInput placeholder="specialite" [(ngModel)]="data.specialite" name="specialite" required>
+                    </mat-form-field>
+                </div>
+                <div mat-dialog-actions>
+                    <button mat-button [type]="submit" [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="addCours()" class="btn btn-danger pull-right">Ajouter</button>
+                    <button mat-button (click)="onNoClick()" tabindex="-1">Annuler</button>
+                </div>
+            </form>
+  
+    </div>
+  
