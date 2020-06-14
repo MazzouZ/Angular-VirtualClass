@@ -11,6 +11,7 @@ import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import {UserListComponent} from "../../user-list/user-list.component";
 import { OrganisationsComponent } from 'app/organisations/organisations.component';
 import { CoursComponent } from 'app/Cours/cours/cours.component';
+import { PostComponent } from 'app/Post/post/post.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -59,6 +60,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'users',          component: UserListComponent },
     { path: 'organisations',  component: OrganisationsComponent },
     { path: 'cours',          component: CoursComponent },
+    { path: 'post',           component: PostComponent },
     { path: 'user-profile',   component: UserProfileComponent },
     { path: 'table-list',     component: TableListComponent },
     { path: 'typography',     component: TypographyComponent },

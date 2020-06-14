@@ -1,0 +1,27 @@
+
+<div class="card" >
+    <div class="card-header card-header-danger mat-dialog-title">
+        <h4 class="card-title ">Modifier Post</h4>
+    </div>
+  
+    <form  (ngSubmit)="submit()" #formControl="ngForm">
+  
+        <div class="form">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="titre" value="{{data.post.titre}}" [(ngModel)]="data.post.titre" name="titre" required>
+            </mat-form-field>
+        </div>
+  
+        <div class="form">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="description" value="{{data.post.description}}" [(ngModel)]="data.post.description" name="description">
+            </mat-form-field>
+        </div>
+        <div mat-dialog-actions>
+            <button mat-button [type]="submit" [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="updatePost()" class="btn btn-danger pull-right">Modifier</button>
+            <button mat-button (click)="onNoClick()" tabindex="-1">Annuler</button>
+        </div>
+    </form>
+  
+  </div>
+  

@@ -1,0 +1,19 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col col-md-12">
+                <button mat-raised-button (click)="openAddDialog()" class="btn btn-danger">Create Post</button>
+                <div *ngFor="let post of listPost">
+                    <div class="card width" (click)="onClickDialog(post)">
+                        <div class="card-header">
+                            <h3 class="card-title ">{{ post.titre}}</h3>
+                        </div>
+                        <div class="mat-card-actions">
+                            <div class="pull-right">{{post.dateDebut | date:'short' }}</div>
+                        </div>
+                        </div >
+                </div>
+            </div>
+        </div>
+    </div>
+</div>                

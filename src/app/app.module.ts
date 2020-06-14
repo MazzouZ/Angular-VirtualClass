@@ -77,6 +77,10 @@ import { OrganisationsComponent } from './organisations/organisations.component'
 import { CoursComponent } from './Cours/cours/cours.component';
 import { AddDialogeCoursComponent } from './Cours/add-dialog-cours/add-dialoge-cours/add-dialoge-cours.component';
 import { EditDialogeCoursComponent } from './Cours/edit-dialog-cours/edit-dialoge-cours/edit-dialoge-cours.component';
+import { PostComponent } from './Post/post/post.component';
+import { AddDialogPostComponent } from './Post/add-dialog-post/add-dialog-post/add-dialog-post.component';
+import { EditDialogPostComponent } from './Post/edit-dialog-post/edit-dialog-post/edit-dialog-post.component';
+import { OnClickDialogPostComponent } from './Post/onClick-dialog-post/on-click-dialog-post/on-click-dialog-post.component';
 
 
 
@@ -150,7 +154,11 @@ import { EditDialogeCoursComponent } from './Cours/edit-dialog-cours/edit-dialog
     AddDialogOrganisationComponent,
     CoursComponent,
     AddDialogeCoursComponent,
-    EditDialogeCoursComponent
+    EditDialogeCoursComponent,
+    PostComponent,
+    AddDialogPostComponent,
+    EditDialogPostComponent,
+    OnClickDialogPostComponent
 
   ],
   providers: [],
