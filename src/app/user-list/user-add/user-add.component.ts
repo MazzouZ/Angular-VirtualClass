@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {UserData, UserListComponent} from '../user-list.component';
 import {FormControl, Validators} from '@angular/forms';
-import {CrudService} from '../../Services/crud.service';
+import {CrudService} from '../../services/crud.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -31,7 +31,7 @@ export class UserAddComponent {
             '';
   }
   public addUser() {
-     this.crudService.addItem('users',this.data);
+     this.crudService.addItem('mzUsers',this.data);
      this._snackBar.open('Element Created',"",{
       duration: 2000,
       verticalPosition: 'top',

@@ -10,6 +10,7 @@ import { NotificationsComponent } from '../../notifications/notifications.compon
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import {UserListComponent} from "../../user-list/user-list.component";
 import { OrganisationsComponent } from 'app/organisations/organisations.component';
+import {LoginComponent} from '../../login/login.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {

@@ -1,0 +1,61 @@
+<div class="sidenav">
+    <div class="login-main-text">
+        <h2>Virtual Class <br> Login Page</h2>
+        <p>Entrer vos données d'enregistrement dans les champs correspondant.</p>
+    </div>
+</div>
+<div class="main">
+    <div class="col-md-6 col-sm-12">
+        <div class="login-form">
+            <form [formGroup]="formGroup" autocomplete="off" novalidate #f="ngForm" (ngSubmit)="onLogin(f.value)">
+                <mat-form-field class="myInput-full-width">
+                    <mat-label>User Name</mat-label>
+                    <input matInput type="text" matInput formControlName="username" [errorStateMatcher]="matcher"
+                           placeholder="Username" required>
+                    <mat-hint>20 charactère maximum</mat-hint>
+                </mat-form-field>
+                <div *ngIf="registerMode">
+                <mat-form-field class="myInput-full-width">
+                    <mat-label>Organisation Name</mat-label>
+                    <input matInput type="text" matInput formControlName="organisationName" [errorStateMatcher]="matcher"
+                           placeholder="organisationName" required>
+                </mat-form-field>
+                </div>
+
+                <div *ngIf="registerMode">
+                    <mat-form-field class="myInput-full-width">
+                        <mat-label>Email</mat-label>
+                        <input matInput formControlName="email" [errorStateMatcher]="matcher"
+                               placeholder="Ex. MZ@example.com" required>
+                        <mat-hint>mail valide !</mat-hint>
+                    </mat-form-field>
+                </div>
+
+                <mat-form-field class="myInput-full-width">
+                    <mat-label>Password</mat-label>
+                    <input type="password" matInput formControlName="password" autocomplete="on" [errorStateMatcher]="matcher" required>
+                </mat-form-field>
+
+                <mat-form-field class="myInput-full-width" *ngIf="registerMode">
+                    <mat-label>Password confirmation</mat-label>
+                    <input type="password" matInput formControlName="confirmedPassword" autocomplete="on" [errorStateMatcher]="matcher" required>
+                </mat-form-field>
+
+                <div class="alert alert-danger m-2" *ngIf="mz===89">UserName ou Mot de Passe est Incorrect !!</div>
+                <div class="alert alert-danger m-2" *ngIf="mz===39"><p>
+                    Utilisateur déja existé !
+                </p>
+                </div>
+                <button type="submit" class="btn btn-black m-1" *ngIf="!registerMode">
+                    Login
+                </button>
+                <button class="btn btn-dark text-white mr-2"
+                        [ngStyle]="{'cursor':formGroup.invalid && registerMode ? 'not-allowed' : 'pointer' }"
+                        (click)="onRegister(f.value)" [disabled]="formGroup.invalid && registerMode">
+                    Register
+                </button>
+                <a style="cursor: pointer" (click)="onLogin(f.value)" *ngIf="registerMode">J'ai déja un compte</a>
+            </form>
+        </div>
+    </div>
+</div>

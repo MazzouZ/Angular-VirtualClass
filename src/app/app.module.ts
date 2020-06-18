@@ -62,7 +62,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatRadioModule} from '@angular/material/radio';
 import {ClipboardModule} from '@angular/cdk/clipboard';
 import {MatChipsModule} from '@angular/material/chips';
-import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
+import {ErrorStateMatcher, MatNativeDateModule, MatRippleModule} from '@angular/material/core';
 import {MatSliderModule} from '@angular/material/slider';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatBadgeModule} from '@angular/material/badge';
@@ -74,6 +74,9 @@ import { UserModifyComponent } from './user-list/user-modify/user-modify.compone
 import { EditDialogOrganisationComponent } from './organisations/edit-dialog-organisation/edit-dialog-organisation.component';
 import { AddDialogOrganisationComponent } from './organisations/add-dialog-organisation/add-dialog-organisation.component';
 import { OrganisationsComponent } from './organisations/organisations.component';
+import { LoginComponent } from './login/login.component';
+import {AuthService} from './services/auth.service';
+import {CrudService} from './services/crud.service';
 
 
 
@@ -131,7 +134,7 @@ import { OrganisationsComponent } from './organisations/organisations.component'
         MatTreeModule,
         PortalModule,
         ScrollingModule,
-        MatInputModule
+        MatInputModule,
         /* AgmCoreModule.forRoot({
            apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
          }),*/
@@ -144,10 +147,11 @@ import { OrganisationsComponent } from './organisations/organisations.component'
     UserModifyComponent,
     OrganisationsComponent,
     EditDialogOrganisationComponent,
-    AddDialogOrganisationComponent
+    AddDialogOrganisationComponent,
+    LoginComponent
 
   ],
-  providers: [],
+  providers: [AuthService,CrudService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
