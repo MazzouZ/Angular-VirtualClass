@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, Optional } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { OrganisationElement, OrganisationsComponent } from 'app/organisations/organisations.component';
-import { CrudService } from 'app/Services/crud.service';
+import { CrudService } from 'app/services/crud.service';
 import { Validators, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 

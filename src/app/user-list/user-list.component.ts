@@ -7,14 +7,15 @@ import {MatDialog} from '@angular/material/dialog';
 import {UserAddComponent} from './user-add/user-add.component';
 import {UserModifyComponent} from './user-modify/user-modify.component';
 import {NotificationsComponent} from '../notifications/notifications.component';
-import {CrudService} from '../Services/crud.service';
+import {CrudService} from '../services/crud.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {AuthService} from '../services/auth.service';
 
 export interface UserData {
   nom      :string;
   prenom   :string;
   email    :string;
-  login    :string;
+  username :string;
   password :string;
   photo    :string;
   telehpone:string;
@@ -27,28 +28,32 @@ export interface UserData {
 })
 export class UserListComponent implements OnInit {
 
-  displayedColumns: string[] = ['photo','login','email','dateCreation','Actions'];
+  displayedColumns: string[] = ['photo','username','email','dateCreation','Actions'];
   dataSource: MatTableDataSource<UserData>;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  constructor(private crudService:CrudService,public dialog: MatDialog,private _snackBar: MatSnackBar) {
+  constructor(private crudService:CrudService,
+              public dialog: MatDialog,
+              private _snackBar: MatSnackBar,
+              private authService: AuthService) {
   }
   ngOnInit() {
     this.getUsers();
   }
   getUsers() {
-    this.crudService.getItems('users').subscribe(
+    this.crudService.getItems('mzUsers').subscribe(
         (data) => {
           // @ts-ignore
-          let listUsers:UserData[]=data._embedded.users;
+          let listUsers:UserData[]=data._embedded.mzUsers;
           this.dataSource=new MatTableDataSource();
           this.dataSource = new MatTableDataSource(listUsers);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
         },error => {
           console.log(error);
+          this.authService.logout();
         });
   }
   applyFilter(event: Event) {

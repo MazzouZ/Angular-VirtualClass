@@ -12,6 +12,7 @@ import {UserListComponent} from "../../user-list/user-list.component";
 import { OrganisationsComponent } from 'app/organisations/organisations.component';
 import { CoursComponent } from 'app/Cours/cours/cours.component';
 import { PostComponent } from 'app/Post/post/post.component';
+import {LoginComponent} from '../../login/login.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {

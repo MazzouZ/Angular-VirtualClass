@@ -21,7 +21,7 @@
 
         <div class="form">
             <mat-form-field >
-                <input matInput #inputstate placeholder="Login" value="{{data.user.login}}" [(ngModel)]="data.user.login" name="login" maxlength="10" required >
+                <input matInput #inputstate placeholder="Username" value="{{data.user.username}}" [(ngModel)]="data.user.username" name="username" maxlength="10" required >
                 <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
                 <mat-hint align="end">{{inputstate.value?.length || 0}}/10</mat-hint>
             </mat-form-field>

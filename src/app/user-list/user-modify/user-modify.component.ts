@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {UserData} from '../user-list.component';
-import {CrudService} from '../../Services/crud.service';
+import {CrudService} from '../../services/crud.service';
 import {FormControl, Validators} from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 

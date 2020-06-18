@@ -6,9 +6,10 @@ import {MatTableDataSource} from '@angular/material/table';
 import { MatDialog} from '@angular/material/dialog';
 import { EditDialogOrganisationComponent } from 'app/organisations/edit-dialog-organisation/edit-dialog-organisation.component';
 import { AddDialogOrganisationComponent } from 'app/organisations/add-dialog-organisation/add-dialog-organisation.component';
-import { CrudService } from 'app/Services/crud.service';
+import { CrudService } from 'app/services/crud.service';
 import {NotificationsComponent} from '../notifications/notifications.component';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {AuthService} from '../services/auth.service';
 
 export interface OrganisationElement {
   label: String;
@@ -29,7 +30,10 @@ export class OrganisationsComponent implements OnInit {
   
 
 
-  constructor(private crudService:CrudService,public dialog: MatDialog,private _snackBar: MatSnackBar){}
+  constructor(private crudService:CrudService,
+              public dialog: MatDialog,
+              private _snackBar: MatSnackBar,
+              private authService: AuthService){}
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -48,6 +52,7 @@ export class OrganisationsComponent implements OnInit {
           this.dataSource.sort = this.sort;
         },error => {
           console.log(error);
+          this.authService.logout();
         });
   }
   //---------------------------------------------------------------------
