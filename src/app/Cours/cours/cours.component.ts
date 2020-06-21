@@ -4,6 +4,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { EditDialogeCoursComponent } from '../edit-dialog-cours/edit-dialoge-cours/edit-dialoge-cours.component';
 import { AddDialogeCoursComponent } from '../add-dialog-cours/add-dialoge-cours/add-dialoge-cours.component';
+import { Router } from '@angular/router';
+import { InteractionService } from 'app/services/interaction.service';
 
 export interface CoursElement {
   id            : number
@@ -19,7 +21,8 @@ export interface CoursElement {
 })
 export class CoursComponent implements OnInit {
   listCours :CoursElement[];
-  constructor(private crudService:CrudService,public dialog: MatDialog,private _snackBar: MatSnackBar) { }
+  constructor(private crudService:CrudService,public dialog: MatDialog,private _snackBar: MatSnackBar,
+    private route:Router,private interactionService: InteractionService) { }
 
   ngOnInit(): void {
     this.getCours();
@@ -70,6 +73,12 @@ deleteCours(row){
     verticalPosition: 'top',
     panelClass: ['snackbarDelete']
   });
-}    
+}   
+
+redirectPost(cours){
+
+  this.interactionService.sendObject(cours);
+  this.route.navigate(['/post']);
+  }
 
 }

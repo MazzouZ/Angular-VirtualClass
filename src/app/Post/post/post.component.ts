@@ -5,6 +5,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { EditDialogPostComponent } from '../edit-dialog-post/edit-dialog-post/edit-dialog-post.component';
 import { AddDialogPostComponent } from '../add-dialog-post/add-dialog-post/add-dialog-post.component';
 import { OnClickDialogPostComponent } from '../onClick-dialog-post/on-click-dialog-post/on-click-dialog-post.component';
+import { ActivatedRoute } from '@angular/router';
+import { parseJSON, param } from 'jquery';
+import { Subscription } from 'rxjs';
+import { InteractionService } from 'app/services/interaction.service';
 
 export interface PostElement {
   id            : number
@@ -20,11 +24,27 @@ export interface PostElement {
 })
 export class PostComponent implements OnInit {
   listPost :PostElement[];
-  constructor(private crudService:CrudService,public dialog: MatDialog,private _snackBar: MatSnackBar) { }
+  //public Cours;
+  CoursP :any;
+  sub : Subscription;
+  constructor(private crudService:CrudService,public dialog: MatDialog,private _snackBar: MatSnackBar,
+    private route:ActivatedRoute,private interactionService:InteractionService) { }
 
   ngOnInit(): void {
     this.getPosts();
+    //this.test();
+
   }
+  /*test(){
+    this.interactionService.object$.subscribe(
+      object =>{
+        this.CoursP = object;
+        console.log(this.CoursP);
+       
+      }
+    );
+    
+  }*/
 
   getPosts() {
     this.crudService.getItems('posts').subscribe(

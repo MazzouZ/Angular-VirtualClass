@@ -5,7 +5,7 @@
                 <button mat-raised-button (click)="openAddDialog()" class="btn btn-danger">Create Cours</button>
                 <div *ngFor="let cours of listCours">
                     <div class="card width">
-                        <div class="card-header card-header-danger">
+                        <div class="card-header card-header-danger"  (click)="redirectPost(cours)">
                             <h3 class="card-title ">{{ cours.label}}</h3>
                             <h3 class="card-category">{{ cours.specialite }}</h3>
                             <h4 class="card-category">{{ cours.code }}</h4>

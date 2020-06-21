@@ -5,6 +5,11 @@ import { PostElement } from 'app/Post/post/post.component';
 import { EditDialogPostComponent } from 'app/Post/edit-dialog-post/edit-dialog-post/edit-dialog-post.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+export interface CommentaireElement {
+  id            : number;
+  label         :String;
+  date          :number;
+}
 @Component({
   selector: 'app-on-click-dialog-post',
   templateUrl: './on-click-dialog-post.component.html',
@@ -12,12 +17,16 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class OnClickDialogPostComponent implements OnInit {
   listPost :PostElement[];
+  listCom : CommentaireElement[];
+  Com : CommentaireElement = {id : 0,label : '',date : 0};
+  
   constructor(public dialog: MatDialog,private _snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<OnClickDialogPostComponent>,
     @Inject(MAT_DIALOG_DATA) public data,
     private crudService:CrudService) { }
 
   ngOnInit(): void {
+    this.getCom();
   }
   onNoClick(): void {
     this.dialogRef.close();
@@ -31,6 +40,21 @@ export class OnClickDialogPostComponent implements OnInit {
           console.log(error);
         });
       }
+
+  getCom() {
+        this.crudService.getItems('commentaires').subscribe(
+            (data) => {
+              // @ts-ignore
+              this.listCom = data._embedded.commentaires;    
+            },error => {
+              console.log(error);
+            });
+          }    
+   //---------------------------------------------------------------------
+   addCom(){
+     this.Com.date = Date.now();
+     this.crudService.addItem('commentaires',this.Com);
+   }
    //---------------------------------------------------------------------
    openModifyDialog(row) {
     const dialogRef = this.dialog.open(EditDialogPostComponent, {
@@ -55,6 +79,10 @@ deletePost(row){
     verticalPosition: 'top',
     panelClass: ['snackbarDelete']
   });
+}
+
+submit() {
+
 }    
 
 }

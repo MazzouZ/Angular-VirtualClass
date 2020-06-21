@@ -13,8 +13,33 @@
         <h5>{{ data.post.description}}</h5> 
     </div>
     <div class="mat-card-actions">
-        <div class="pull-right">
-        
-        </div>  
+
+     <form  (ngSubmit)="submit()" #formControl="ngForm">
+
+        <div class="form">
+            <mat-form-field class="width position">
+                <input matInput placeholder="Ajouter un commentaire" [type]="submit" [(ngModel)]="Com.label" name="label" required>
+            </mat-form-field>
+        </div>
+
+        <div class="positionButton">
+            <button mat-icon-button (click)="addCom()" class="btn btn-danger">
+                <mat-icon>send</mat-icon>
+            </button>
+        </div>
+    </form>
+
+       <div>
+        <div *ngFor="let com of listCom">
+            <div class="card width">
+                <div class="card-header">
+                    <h5 class="card-title ">{{ com.label }}</h5>
+                </div>
+                <div class="mat-card-actions">
+                    <div class="pull-right">{{ com.date | date:'short' }}</div>
+                </div>
+                </div >
+        </div>
+       </div>  
     </div>
 </div>

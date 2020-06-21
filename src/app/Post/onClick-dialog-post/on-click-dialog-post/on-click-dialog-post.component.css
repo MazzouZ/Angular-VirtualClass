@@ -1,0 +1,11 @@
+.position{
+    position: relative;
+    float: left;
+}
+.positionButton{
+    position: relative;
+    float: right;
+}
+.width{
+    width: 90%;
+}
