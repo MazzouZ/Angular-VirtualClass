@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CrudService } from 'app/Services/crud.service';
+import { CrudService } from 'app/services/crud.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({

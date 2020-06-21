@@ -84,6 +84,7 @@ import { OnClickDialogPostComponent } from './Post/onClick-dialog-post/on-click-
 import { LoginComponent } from './login/login.component';
 import {AuthService} from './services/auth.service';
 import {CrudService} from './services/crud.service';
+import { MaterialFileUploadComponent } from './material-file-upload/material-file-upload.component';
 
 
 
@@ -162,7 +163,8 @@ import {CrudService} from './services/crud.service';
     AddDialogPostComponent,
     EditDialogPostComponent,
     OnClickDialogPostComponent,
-    LoginComponent
+    LoginComponent,
+    MaterialFileUploadComponent
 
   ],
   providers: [AuthService,CrudService],
