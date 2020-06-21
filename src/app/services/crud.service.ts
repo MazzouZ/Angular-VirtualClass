@@ -9,6 +9,7 @@ export class CrudService {
   obj :any;
   objUser :any;
   url='http://localhost:8085/';
+  public resultdata:any;
 
   constructor(private http: HttpClient,private authService:AuthService) { }
 
@@ -26,6 +27,7 @@ export class CrudService {
         {headers:new HttpHeaders({'Authorization':this.authService.loadToken()})}).subscribe(
         data =>{
           console.log(data);
+          this.resultdata =data;
         },error => {
           console.log(error);
             this.authService.logout();

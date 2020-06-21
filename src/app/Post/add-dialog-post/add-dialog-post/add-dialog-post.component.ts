@@ -7,45 +7,38 @@ import { InteractionService } from 'app/services/interaction.service';
 import { CoursElement } from 'app/Cours/cours/cours.component';
 
 @Component({
-  selector: 'app-add-dialog-post',
-  templateUrl: './add-dialog-post.component.html',
-  styleUrls: ['./add-dialog-post.component.css']
+    selector: 'app-add-dialog-post',
+    templateUrl: './add-dialog-post.component.html',
+    styleUrls: ['./add-dialog-post.component.css']
 })
 export class AddDialogPostComponent implements OnInit {
-  CoursP :CoursElement= {id : 0,label : '',code:'',specialite:''};
-  constructor(public dialogRef: MatDialogRef<AddDialogPostComponent>,
-    @Inject(MAT_DIALOG_DATA) public data,
-    private crudService:CrudService,private _snackBar: MatSnackBar,private interactionService:InteractionService) 
-    { }
 
-  ngOnInit(){
-    this.test();
-  }
+    constructor(public dialogRef: MatDialogRef<AddDialogPostComponent>,
+                @Inject(MAT_DIALOG_DATA) public data: PostElement,
+                private crudService: CrudService, private _snackBar: MatSnackBar) {
+    }
 
-  test(){
-    this.interactionService.object$.subscribe(
-        object =>{
-          this.CoursP = object._links.self.href; 
-          console.log(object);
-        }
-      );
-    
-  }
+    ngOnInit(): void {
+    }
 
-  public addPost() {
-    this.data.dateDebut = Date.now();
-    this.crudService.linkItemPostCours('posts',this.data,this.CoursP);
-    this._snackBar.open('Element Created',"",{
-       duration: 2000,
-       verticalPosition: 'top',
-       panelClass: ['snackbarSuccess']
-     });
- }
- submit() {
+    public addPost() {
+        this.data.dateDebut = Date.now();
+        this.crudService.addItem('posts', this.data);
+        setTimeout(() => {
+            console.log(this.crudService.resultdata);
+            this._snackBar.open('Element Created', '', {
+                duration: 2000,
+                verticalPosition: 'top',
+                panelClass: ['snackbarSuccess']
+            });
+        },2000)
+    }
+    submit() {
 
- }
- onNoClick(): void {
-   this.dialogRef.close();
- }
+    }
+
+    onNoClick(): void {
+        this.dialogRef.close();
+    }
 
 }

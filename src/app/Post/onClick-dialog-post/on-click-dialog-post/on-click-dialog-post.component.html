@@ -1,16 +1,30 @@
-<div class="card" >
+<div class="card">
     <div class="card-header card-header-danger mat-dialog-title">
-        <h3 class="card-title ">{{data.post.titre}}</h3><button mat-icon-button [matMenuTriggerFor]="aboveMenu" class="pull-right">
-            <mat-icon>more_horiz</mat-icon>
-        </button>
-        <mat-menu #aboveMenu="matMenu" yPosition="above">
-        <button mat-menu-item (click)="openModifyDialog(data.post)" >Edit</button>
-        <button mat-menu-item (click)="deletePost(data.post)" >Delete</button>
-        </mat-menu>
+        <h3 class="card-title ">{{data.post.titre}}</h3>
     </div>
     <div class="card-body">
-        <h4>Description :</h4>
-        <h5>{{ data.post.description}}</h5> 
+        <h5>{{ data.post.description}}</h5>
+        <div *ngIf="this.booksNames" class="col-md-12">
+            <div *ngFor="let book of this.booksNames">
+                <mat-icon (click)="getBook(book)" style="cursor: pointer">description</mat-icon>
+                {{book}}
+                <mat-icon class="text-danger float-right" (click)="deleteBook(book)" style="cursor: pointer">
+                    delete
+                </mat-icon>
+            </div>
+        </div>
+        <div *ngIf="!this.booksNames">
+            Aucun support de cours est disponible dans le moment ;(
+        </div>
+
+
+        <div style="text-align:center" class="m-4">
+            <app-material-file-upload (complete)="onFileComplete($event)"
+                                      [target]="'http://localhost:8085/chargerFichier/'+data.post.id"
+                                      [param]="'file'"
+                                      [text]="'Ajouter un support de cours'">
+            </app-material-file-upload>
+        </div>
     </div>
     <div class="mat-card-actions">
 
@@ -41,5 +55,8 @@
                 </div >
         </div>
        </div>  
+        <div class="pull-right">
+
+        </div>
     </div>
 </div>

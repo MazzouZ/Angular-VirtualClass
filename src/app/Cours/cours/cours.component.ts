@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CrudService } from 'app/Services/crud.service';
+import { CrudService } from 'app/services/crud.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { EditDialogeCoursComponent } from '../edit-dialog-cours/edit-dialoge-cours/edit-dialoge-cours.component';
