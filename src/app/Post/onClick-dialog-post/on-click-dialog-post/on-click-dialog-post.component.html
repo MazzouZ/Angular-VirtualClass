@@ -1,3 +1,4 @@
+<mat-dialog-content class="mat-typography">
 <div class="card">
     <div class="card-header card-header-danger mat-dialog-title">
         <h3 class="card-title ">{{data.post.titre}}</h3>
@@ -43,20 +44,27 @@
         </div>
     </form>
 
-       <div>
         <div *ngFor="let com of listCom">
-            <div class="card width">
+            <div class="card widthx borderx">
                 <div class="card-header">
-                    <h5 class="card-title ">{{ com.label }}</h5>
+                    <div class="card-title "><h5 class="position">{{ com.label }}</h5>
+                        <button mat-icon-button [matMenuTriggerFor]="aboveMenu" class="positionButton">
+                        <mat-icon>more_horiz</mat-icon>
+                    </button>
+                    <mat-menu #aboveMenu="matMenu" yPosition="above">
+                        <button mat-menu-item (click)="deleteCom(com)">Delete</button>
+                    </mat-menu></div>
+                    
                 </div>
                 <div class="mat-card-actions">
                     <div class="pull-right">{{ com.date | date:'short' }}</div>
                 </div>
                 </div >
         </div>
-       </div>  
+    
         <div class="pull-right">
 
         </div>
     </div>
 </div>
+</mat-dialog-content>  

@@ -35,6 +35,19 @@ export class CrudService {
     );
   }
 
+  addLinkItem(object: any,username :String,postId :number) {
+    return this.http.post('http://localhost:8085/ComPost/'+postId+'/'+username, object,
+        {headers:new HttpHeaders({'Authorization':this.authService.loadToken()})}).subscribe(
+        data =>{
+          console.log(data);
+          this.resultdata =data;
+        },error => {
+          console.log(error);
+           
+        }
+    );
+  }
+
   deleteItem(object:any) {
     return this.http.delete(object._links.self.href,
         {headers:new HttpHeaders({'Authorization':this.authService.loadToken()})}).subscribe(

@@ -32,10 +32,10 @@ export class PostComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPosts();
-    //this.test();
+    this.test();
 
   }
-  /*test(){
+  test(){
     this.interactionService.object$.subscribe(
       object =>{
         this.CoursP = object;
@@ -44,7 +44,7 @@ export class PostComponent implements OnInit {
       }
     );
     
-  }*/
+  }/**/
 
   getPosts() {
     this.crudService.getItems('posts').subscribe(

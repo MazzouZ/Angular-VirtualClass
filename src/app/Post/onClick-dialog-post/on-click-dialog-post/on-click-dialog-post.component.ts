@@ -46,7 +46,7 @@ export class OnClickDialogPostComponent implements OnInit {
       }
 
   getCom() {
-        this.crudService.getItems('commentaires').subscribe(
+        this.crudService.getlinkItem(this.data.post._links.commentaires.href).subscribe(
             (data) => {
               // @ts-ignore
               this.listCom = data._embedded.commentaires;    
@@ -57,7 +57,13 @@ export class OnClickDialogPostComponent implements OnInit {
    //---------------------------------------------------------------------
    addCom(){
      this.Com.date = Date.now();
-     this.crudService.addItem('commentaires',this.Com);
+     //this.crudService.addItem('commentaires',this.Com);
+     this.crudService.addLinkItem(this.Com,this.authService.currentUser().sub,this.data.post.id);
+     setTimeout(()=>{
+      this.Com.label='';
+      this.getCom();
+    },1000);
+    
    }
    //---------------------------------------------------------------------
    openModifyDialog(row) {
@@ -73,10 +79,10 @@ export class OnClickDialogPostComponent implements OnInit {
     });
   }
   //---------------------------------------------------------------------
-deletePost(row){
+deleteCom(row){
   this.crudService.deleteItem(row);
   setTimeout(()=>{
-    this.getPosts();
+    this.getCom();
   },1000);
   this._snackBar.open('Element Deleted',"",{
     duration: 2000,
