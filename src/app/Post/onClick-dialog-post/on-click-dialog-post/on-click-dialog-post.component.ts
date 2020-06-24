@@ -30,6 +30,7 @@ export class OnClickDialogPostComponent implements OnInit {
     private authService:AuthService) { }
 
   ngOnInit(): void {
+      this.getFiles();
     this.getCom();
   }
   onNoClick(): void {
@@ -56,13 +57,16 @@ export class OnClickDialogPostComponent implements OnInit {
           }    
    //---------------------------------------------------------------------
    addCom(){
-     this.Com.date = Date.now();
-     //this.crudService.addItem('commentaires',this.Com);
-     this.crudService.addLinkItem(this.Com,this.authService.currentUser().sub,this.data.post.id);
-     setTimeout(()=>{
-      this.Com.label='';
-      this.getCom();
-    },1000);
+      if (this.Com.label != ''){
+          this.Com.date = Date.now();
+          //this.crudService.addItem('commentaires',this.Com);
+          this.crudService.addLinkItem(this.Com,this.authService.currentUser().sub,this.data.post.id);
+          setTimeout(()=>{
+              this.Com.label='';
+              this.getCom();
+          },1000);
+      }
+
     
    }
    //---------------------------------------------------------------------

@@ -10,6 +10,7 @@ import {NotificationsComponent} from '../notifications/notifications.component';
 import {CrudService} from '../services/crud.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {AuthService} from '../services/auth.service';
+import {DomSanitizer} from '@angular/platform-browser';
 
 export interface UserData {
   nom      :string;
@@ -17,9 +18,10 @@ export interface UserData {
   email    :string;
   username :string;
   password :string;
-  photo    :string;
+  photo    :any;
   telehpone:string;
-  dateCreation:Date;
+  role:string;
+  dateCreation:number;
 }
 @Component({
   selector: 'app-user-list',
@@ -30,14 +32,15 @@ export class UserListComponent implements OnInit {
 
   displayedColumns: string[] = ['photo','username','email','dateCreation','Actions'];
   dataSource: MatTableDataSource<UserData>;
-
+  PhotoLoading=true;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(private crudService:CrudService,
               public dialog: MatDialog,
               private _snackBar: MatSnackBar,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private domSanitizer: DomSanitizer) {
   }
   ngOnInit() {
     this.getUsers();
@@ -47,6 +50,10 @@ export class UserListComponent implements OnInit {
         (data) => {
           // @ts-ignore
           let listUsers:UserData[]=data._embedded.mzUsers;
+          listUsers.forEach(user => {
+            console.log(user.username);
+            this.getPhoto(user);
+          });
           this.dataSource=new MatTableDataSource();
           this.dataSource = new MatTableDataSource(listUsers);
           this.dataSource.paginator = this.paginator;
@@ -106,4 +113,18 @@ export class UserListComponent implements OnInit {
       panelClass: ['snackbarDelete']
     });
   }
+
+    onFileComplete($event: string,row) {
+            this.getPhoto(row);
+    }
+    getPhoto(user){
+      this.crudService.getProfile(user.username).subscribe(
+          (response:any) => {
+            let file = new Blob([response], { type: 'image/png' });
+            var fileURL = this.domSanitizer.bypassSecurityTrustUrl(URL.createObjectURL(file));
+            console.log();
+            user.photo=fileURL;
+          },
+          error => {console.log(error);});
+    }
 }

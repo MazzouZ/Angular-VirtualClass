@@ -23,7 +23,9 @@
             <app-material-file-upload (complete)="onFileComplete($event)"
                                       [target]="'http://localhost:8085/chargerFichier/'+data.post.id"
                                       [param]="'file'"
-                                      [text]="'Ajouter un support de cours'">
+                                      [text]="'Ajouter un support de cours'"
+                                      [accept]="'application/pdf'"
+            >
             </app-material-file-upload>
         </div>
     </div>
@@ -33,7 +35,7 @@
 
         <div class="form">
             <mat-form-field class="width position">
-                <input matInput placeholder="Ajouter un commentaire" [type]="submit" [(ngModel)]="Com.label" name="label" required>
+                <input matInput placeholder="Ajouter un commentaire" [type]="submit" [(ngModel)]="Com.label" name="label">
             </mat-form-field>
         </div>
 
