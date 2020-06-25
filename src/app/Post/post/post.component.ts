@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { parseJSON, param } from 'jquery';
 import { Subscription } from 'rxjs';
 import { InteractionService } from 'app/services/interaction.service';
+import {AuthService} from '../../services/auth.service';
 
 export interface PostElement {
   id            : number
@@ -28,7 +29,7 @@ export class PostComponent implements OnInit {
   CoursP :any;
   sub : Subscription;
   constructor(private crudService:CrudService,public dialog: MatDialog,private _snackBar: MatSnackBar,
-    private route:ActivatedRoute,private interactionService:InteractionService) { }
+    private route:ActivatedRoute,private interactionService:InteractionService,private authService: AuthService) { }
 
   ngOnInit(): void {
     this.getPosts();

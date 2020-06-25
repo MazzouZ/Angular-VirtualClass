@@ -54,7 +54,8 @@
                             <td mat-cell *matCellDef="let row">
                                 <mat-chip-list aria-label="Fish selection" >
                                     <button mat-raised-button selected class="btn btn-warning btn-link btn-just-icon" (click)="openModifyDialog(row)"><mat-icon>edit</mat-icon></button>
-                                        <button mat-raised-button selected class="btn btn-danger btn-link  btn-just-icon" (click)="deleteUser(row)"><mat-icon>delete</mat-icon></button>
+                                    <button *ngIf="!(authService.currentUser().sub === row.username)"
+                                            mat-raised-button selected class="btn btn-danger btn-link  btn-just-icon" (click)="deleteUser(row)"><mat-icon>delete</mat-icon></button>
                                 </mat-chip-list>
                             </td>
                         </ng-container>

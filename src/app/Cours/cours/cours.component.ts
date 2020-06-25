@@ -6,6 +6,9 @@ import { EditDialogeCoursComponent } from '../edit-dialog-cours/edit-dialoge-cou
 import { AddDialogeCoursComponent } from '../add-dialog-cours/add-dialoge-cours/add-dialoge-cours.component';
 import { Router } from '@angular/router';
 import { InteractionService } from 'app/services/interaction.service';
+import {MatTableDataSource} from '@angular/material/table';
+import {UserData} from '../../user-list/user-list.component';
+import {AuthService} from '../../services/auth.service';
 
 export interface CoursElement {
   id            : number
@@ -22,20 +25,35 @@ export interface CoursElement {
 export class CoursComponent implements OnInit {
   listCours :CoursElement[];
   constructor(private crudService:CrudService,public dialog: MatDialog,private _snackBar: MatSnackBar,
-    private route:Router,private interactionService: InteractionService) { }
+    private route:Router,private interactionService: InteractionService,private authService:AuthService) { }
 
   ngOnInit(): void {
     this.getCours();
   }
 
   getCours() {
-    this.crudService.getItems('courses').subscribe(
+    this.crudService.getCurrentUser().subscribe(user => {
+      this.crudService.getOrganizationByUser(user).subscribe((organization:any) => {
+        this.crudService.getlinkItem(organization._links.cours.href).subscribe(
+            (data:any) => {
+              this.listCours = data._embedded.courses;
+            }, error => {
+              console.log(error);
+              this.authService.logout();
+            });
+      }, error => {
+        console.log(error);
+      });
+    }, error => {
+      console.error(error);
+    });
+    /*this.crudService.getItems('courses').subscribe(
         (data) => {
           // @ts-ignore
           this.listCours = data._embedded.courses;    
         },error => {
           console.log(error);
-        });
+        });*/
       }
   //---------------------------------------------------------------------
   openModifyDialog(row) {
