@@ -1,0 +1,14 @@
+
+  .position{
+    position: relative;
+    float: left;
+}
+.positionButton{
+    position: relative;
+    float: right;
+}
+
+.margin
+{
+  margin-right: 10px;
+}

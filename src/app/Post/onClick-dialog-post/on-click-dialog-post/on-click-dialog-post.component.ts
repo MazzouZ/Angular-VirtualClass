@@ -31,6 +31,7 @@ export class OnClickDialogPostComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCom();
+    this.getFiles();
   }
   onNoClick(): void {
     this.dialogRef.close();

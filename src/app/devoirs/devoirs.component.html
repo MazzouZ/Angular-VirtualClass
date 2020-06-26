@@ -1,0 +1,62 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col col-md-12">
+                <button mat-raised-button (click)="openAddDialog()" class="btn btn-danger">Create Devoir</button>
+                    <mat-tab-group mat-align-tabs="center">
+                        <mat-tab>
+                            <ng-template mat-tab-label>
+                            <mat-icon class="example-tab-icon margin">thumb_up</mat-icon>
+                            Complet
+                            </ng-template>
+                            <div *ngIf='listDevoirsComplet[0]==null'>Go make your homeworks</div>
+                            <div *ngFor="let devoir of listDevoirsComplet">
+                            <div class="card width">
+                                <div class="card-header">
+                                    <button mat-icon-button [matMenuTriggerFor]="aboveMenu" class="float-right">
+                                        <mat-icon>more_horiz</mat-icon>
+                                    </button>
+                                    <mat-menu #aboveMenu="matMenu" yPosition="above">
+                                        <button mat-menu-item (click)="openModifyDialog(devoir)">Edit</button>
+                                        <button mat-menu-item (click)="deleteDevoir(devoir)">Delete</button>
+                                    </mat-menu>
+                                    <h3 class="card-title " style="cursor: pointer" (click)="onClickDialog(devoir)">{{ devoir.titre}}</h3>
+                                </div>
+                                <div class="mat-card-actions">
+                                    <div class="pull-right">{{devoir.dateDebut | date:'short' }}</div>
+                                </div>
+                            </div>
+                        
+                        </div>
+                        </mat-tab>
+
+                        <mat-tab>
+                            <ng-template mat-tab-label>
+                            <mat-icon class="example-tab-icon margin">thumb_down</mat-icon>
+                            Incomplet
+                            </ng-template>
+                            <div *ngIf='listDevoirsIncomplet[0]==null'>Good joob you have completed all your homeworks</div> 
+                            <div *ngFor="let devoir of listDevoirsIncomplet">
+                                <div class="card width">
+                                    <div class="card-header">
+                                        <button mat-icon-button [matMenuTriggerFor]="aboveMenu" class="float-right">
+                                            <mat-icon>more_horiz</mat-icon>
+                                        </button>
+                                        <mat-menu #aboveMenu="matMenu" yPosition="above">
+                                            <button mat-menu-item (click)="openModifyDialog(devoir)">Edit</button>
+                                            <button mat-menu-item (click)="deleteDevoir(devoir)">Delete</button>
+                                        </mat-menu>
+                                        <h3 class="card-title " style="cursor: pointer" (click)="onClickDialog(devoir)">{{ devoir.titre}}</h3>
+                                    </div>
+                                    <div class="mat-card-actions">
+                                        <div class="pull-right">{{devoir.dateDebut | date:'short' }}</div>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                        </mat-tab>
+                        </mat-tab-group>
+            </div>
+        </div>
+    </div>
+</div>                

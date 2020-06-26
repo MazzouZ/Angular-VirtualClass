@@ -8,7 +8,10 @@ import { OnClickDialogPostComponent } from '../onClick-dialog-post/on-click-dial
 import { ActivatedRoute } from '@angular/router';
 import { parseJSON, param } from 'jquery';
 import { Subscription } from 'rxjs';
-import { InteractionService } from 'app/services/interaction.service';
+import { DevoirElement } from 'app/devoirs/devoirs.component';
+import { SharingService } from 'app/services/sharing.service';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { AuthService } from 'app/services/auth.service';
 
 export interface PostElement {
   id            : number
@@ -25,29 +28,37 @@ export interface PostElement {
 export class PostComponent implements OnInit {
   listPost :PostElement[];
   //public Cours;
-  CoursP :any;
+  courP :any;
   sub : Subscription;
+  listDevoirs :DevoirElement[];
+  nbrComplet:number=0;
+  nbrNonComplet:number=0;
   constructor(private crudService:CrudService,public dialog: MatDialog,private _snackBar: MatSnackBar,
-    private route:ActivatedRoute,private interactionService:InteractionService) { }
+    private route:ActivatedRoute,private interactionService:SharingService,
+    private authService:AuthService,private http:HttpClient) {
+       }
 
   ngOnInit(): void {
+    this.courP = this.interactionService.sharingValue;
+    console.log(this.courP);
     this.getPosts();
-    this.test();
+    this.getDevoirs();
+    
 
   }
-  test(){
-    this.interactionService.object$.subscribe(
-      object =>{
-        this.CoursP = object;
-        console.log(this.CoursP);
-       
-      }
-    );
-    
-  }/**/
+
+  // getPosts() {
+  //   this.crudService.getItems('posts').subscribe(
+  //       (data) => {
+  //         // @ts-ignore
+  //         this.listPost = data._embedded.posts;    
+  //       },error => {
+  //         console.log(error);
+  //       });
+  //     }
 
   getPosts() {
-    this.crudService.getItems('posts').subscribe(
+    this.crudService.getlinkItem(this.courP._links.posts.href).subscribe(
         (data) => {
           // @ts-ignore
           this.listPost = data._embedded.posts;    
@@ -55,6 +66,36 @@ export class PostComponent implements OnInit {
           console.log(error);
         });
       }
+
+      getDevoirs() {
+        this.crudService.getCurrentUser().subscribe(
+          (data1:any)=>{
+           this.crudService.getlinkItem(data1._links.userHasDevoirs.href).subscribe(
+            (data) => {
+              // @ts-ignore
+              data._embedded.userHasDevoirs.forEach((PHF,i)=>{
+                this.http.get(PHF._links.devoir.href,
+                  {headers:new HttpHeaders({'Authorization':this.authService.loadToken()})}).subscribe(
+                  (data2: any) => {
+                    this.nbrComplet=0;
+                    this.nbrNonComplet=0;
+                       if(PHF.etat)
+                            this.nbrComplet++;
+                       else
+                            this.nbrNonComplet++;
+                  }
+                  ,error => {
+                      console.log(error);
+                  }
+              )   
+              });    
+            },error => {
+              console.log(error);
+            });
+          },error => {
+            console.log(error);
+          });
+          }     
   //---------------------------------------------------------------------
   onClickDialog(row) {
     const dialogRef = this.dialog.open(OnClickDialogPostComponent, {
@@ -74,7 +115,7 @@ export class PostComponent implements OnInit {
 openAddDialog(): void {
   const dialogRef = this.dialog.open(AddDialogPostComponent, {
     width: '500px',
-    data: {}
+    data: {courId : this.courP.id}
   });
   dialogRef.afterClosed().subscribe(result => {
     setTimeout(()=>{

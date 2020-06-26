@@ -35,8 +35,47 @@ export class CrudService {
     );
   }
 
-  addLinkItem(object: any,username :String,postId :number) {
-    return this.http.post('http://localhost:8085/ComPost/'+postId+'/'+username, object,
+  addLinkItem(object: any,username :String,itemId :number) {
+    return this.http.post('http://localhost:8085/ComPost/'+itemId+'/'+username, object,
+        {headers:new HttpHeaders({'Authorization':this.authService.loadToken()})}).subscribe(
+        data =>{
+          console.log(data);
+          this.resultdata =data;
+        },error => {
+          console.log(error);
+           
+        }
+    );
+  }
+
+  addLinkItemDevoir(object: any,username :String,itemId :number) {
+    return this.http.post('http://localhost:8085/ComDevoir/'+itemId+'/'+username, object,
+        {headers:new HttpHeaders({'Authorization':this.authService.loadToken()})}).subscribe(
+        data =>{
+          console.log(data);
+          this.resultdata =data;
+        },error => {
+          console.log(error);
+           
+        }
+    );
+  }
+
+  addLinkItemPost(object: any,username :String,itemId :number) {
+    return this.http.post('http://localhost:8085/postAdd/'+itemId+'/'+username, object,
+        {headers:new HttpHeaders({'Authorization':this.authService.loadToken()})}).subscribe(
+        data =>{
+          console.log(data);
+          this.resultdata =data;
+        },error => {
+          console.log(error);
+           
+        }
+    );
+  }
+
+  addLinkCoursDevoir(object: any,username :String) {
+    return this.http.post('http://localhost:8085/devoirAdd/'+username, object,
         {headers:new HttpHeaders({'Authorization':this.authService.loadToken()})}).subscribe(
         data =>{
           console.log(data);
@@ -88,29 +127,6 @@ export class CrudService {
             console.log(error);
           }
       );
-      },error => {
-        console.log(error);
-          this.authService.logout();
-      }
-  );
-  }
-
-  linkItemPostCours(type,object,coursLink){
-    return this.http.post(this.url+type,object,
-      {headers:new HttpHeaders({'Authorization':this.authService.loadToken()})}).subscribe(
-      data =>{
-        this.obj = data;
-        console.log(data);
-        console.log(coursLink);
-        console.log(this.obj._links.cours.href);
-        /*this.http.put(this.obj._links.cours.href,coursLink,
-          {headers:new HttpHeaders({'Content-Type':'text/uri-list','Authorization':this.authService.loadToken()})}).subscribe(
-          data =>{
-            console.log(data);
-          },error => {
-            console.log(error);
-          }
-      );*/
       },error => {
         console.log(error);
           this.authService.logout();

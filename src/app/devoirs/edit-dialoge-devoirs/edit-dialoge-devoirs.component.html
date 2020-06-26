@@ -1,0 +1,39 @@
+<div class="card" >
+    <div class="card-header card-header-danger mat-dialog-title">
+        <h4 class="card-title ">Modifier Devoir</h4>
+    </div>
+  
+    <form  (ngSubmit)="submit()" #formControl="ngForm">
+  
+        <div class="form">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="titre" value="{{data.devoir.titre}}" [(ngModel)]="data.devoir.titre" name="titre" required>
+            </mat-form-field>
+        </div>
+  
+        <div class="form">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="description" value="{{data.devoir.description}}" [(ngModel)]="data.devoir.description" name="description">
+            </mat-form-field>
+        </div>
+        <div class="form">
+            <mat-form-field>
+                <mat-label>Choose a date</mat-label>
+                <input matInput [matDatepicker]="picker"  [(ngModel)]="data.devoir.dateFin" name="dateFin" disabled>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker [dateClass]="dateClass" #picker  disabled="false"></mat-datepicker>
+                <mat-datepicker #picker [startAt]="startDate"></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="form">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Règles du devoir" [(ngModel)]="data.devoir.regles" name="regles" required>
+            </mat-form-field>
+        </div>
+        <div mat-dialog-actions>
+            <button mat-button [type]="submit" [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="updateDevoir()" class="btn btn-danger pull-right">Modifier</button>
+            <button mat-button (click)="onNoClick()" tabindex="-1">Annuler</button>
+        </div>
+    </form>
+  
+  </div>

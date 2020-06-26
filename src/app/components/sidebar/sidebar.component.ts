@@ -12,7 +12,8 @@ export const ROUTES: RouteInfo[] = [
     { path: '/organisations', title: 'Organisation',  icon: 'account_balance', class: '' },
     { path: '/users', title: 'Utilisateurs',  icon:'person', class: '' },
     { path: '/cours', title: 'Cours',  icon:'book', class: '' },
-    { path: '/post', title: 'Post',  icon:'storage', class: '' }
+    { path: '/post', title: 'Post',  icon:'storage', class: '' },
+    { path: '/devoir', title: 'Devoir',  icon:'assignment', class: '' }
     /*{ path: '/user-profile', title: 'User Profile',  icon:'person', class: '' },
     { path: '/table-list', title: 'Table List',  icon:'content_paste', class: '' },
     { path: '/typography', title: 'Typography',  icon:'library_books', class: '' },
