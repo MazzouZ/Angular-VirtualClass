@@ -3,8 +3,8 @@ import { PostElement } from 'app/Post/post/post.component';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CrudService } from 'app/services/crud.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { InteractionService } from 'app/services/interaction.service';
 import { CoursElement } from 'app/Cours/cours/cours.component';
+import { AuthService } from 'app/services/auth.service';
 
 @Component({
     selector: 'app-add-dialog-post',
@@ -14,16 +14,18 @@ import { CoursElement } from 'app/Cours/cours/cours.component';
 export class AddDialogPostComponent implements OnInit {
 
     constructor(public dialogRef: MatDialogRef<AddDialogPostComponent>,
-                @Inject(MAT_DIALOG_DATA) public data: PostElement,
-                private crudService: CrudService, private _snackBar: MatSnackBar) {
+                @Inject(MAT_DIALOG_DATA) public data,
+                private crudService: CrudService, private _snackBar: MatSnackBar,
+                private authService:AuthService) {
     }
 
     ngOnInit(): void {
+        console.log(this.data.courId);
     }
 
     public addPost() {
         this.data.dateDebut = Date.now();
-        this.crudService.addItem('posts', this.data);
+        this.crudService.addLinkItemPost(this.data,this.authService.currentUser().sub,this.data.courId);
         setTimeout(() => {
             console.log(this.crudService.resultdata);
             this._snackBar.open('Element Created', '', {

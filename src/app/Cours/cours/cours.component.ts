@@ -5,10 +5,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { EditDialogeCoursComponent } from '../edit-dialog-cours/edit-dialoge-cours/edit-dialoge-cours.component';
 import { AddDialogeCoursComponent } from '../add-dialog-cours/add-dialoge-cours/add-dialoge-cours.component';
 import { Router } from '@angular/router';
-import { InteractionService } from 'app/services/interaction.service';
+import { SharingService } from 'app/services/sharing.service';
+import { AuthService } from 'app/services/auth.service';
 import {MatTableDataSource} from '@angular/material/table';
 import {UserData} from '../../user-list/user-list.component';
-import {AuthService} from '../../services/auth.service';
+
 
 export interface CoursElement {
   id            : number
@@ -25,7 +26,8 @@ export interface CoursElement {
 export class CoursComponent implements OnInit {
   listCours :CoursElement[];
   constructor(private crudService:CrudService,public dialog: MatDialog,private _snackBar: MatSnackBar,
-    private route:Router,private interactionService: InteractionService,private authService:AuthService) { }
+    private route:Router,private interactionService: SharingService
+    ,private authService:AuthService) { }
 
   ngOnInit(): void {
     this.getCours();
@@ -93,10 +95,14 @@ deleteCours(row){
   });
 }   
 
-redirectPost(cours){
+// redirectPost(cours){
 
-  this.interactionService.sendObject(cours);
-  this.route.navigate(['/post']);
+//   this.interactionService.sendObject(JSON.stringify(cours));
+//   this.route.navigate(['/post',cours.id]);
+//   }
+  redirectPost(cours){
+    this.interactionService.sharingValue = cours;
+    this.route.navigate(['/post']);
   }
 
 }

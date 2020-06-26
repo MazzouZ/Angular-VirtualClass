@@ -37,9 +37,8 @@ export class OnClickDialogPostComponent implements OnInit,OnDestroy {
                 private domSanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
-      this.getFiles();
-      this.getCom();
-
+    this.getCom();
+    this.getFiles();
   }
   onNoClick(): void {
     this.dialogRef.close();

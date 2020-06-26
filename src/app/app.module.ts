@@ -85,6 +85,10 @@ import { LoginComponent } from './login/login.component';
 import {AuthService} from './services/auth.service';
 import {CrudService} from './services/crud.service';
 import { MaterialFileUploadComponent } from './material-file-upload/material-file-upload.component';
+import { DevoirsComponent } from './devoirs/devoirs.component';
+import { AddDialogeDevoirsComponent } from './devoirs/add-dialoge-devoirs/add-dialoge-devoirs.component';
+import { EditDialogeDevoirsComponent } from './devoirs/edit-dialoge-devoirs/edit-dialoge-devoirs.component';
+import { OnClickDialogeDevoirsComponent } from './devoirs/on-click-dialoge-devoirs/on-click-dialoge-devoirs.component';
 
 
 
@@ -164,7 +168,11 @@ import { MaterialFileUploadComponent } from './material-file-upload/material-fil
     EditDialogPostComponent,
     OnClickDialogPostComponent,
     LoginComponent,
-    MaterialFileUploadComponent
+    MaterialFileUploadComponent,
+    DevoirsComponent,
+    AddDialogeDevoirsComponent,
+    EditDialogeDevoirsComponent,
+    OnClickDialogeDevoirsComponent
 
   ],
   providers: [AuthService,CrudService],
