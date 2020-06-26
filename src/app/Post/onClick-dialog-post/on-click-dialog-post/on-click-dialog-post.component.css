@@ -25,4 +25,29 @@
 }
 h3{
     width: 75%;
+
+}
+.column {
+    float: left;
+    width: 20%;
+}
+.column2 {
+    float: left;
+    width: 50%;
+}
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.avatar-image {
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.username-style{
+    color: #e8403d;
+    font-family: fantasy;
+    font-size: smaller;
 }

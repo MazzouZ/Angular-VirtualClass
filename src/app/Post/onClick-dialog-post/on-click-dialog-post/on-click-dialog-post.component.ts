@@ -7,11 +7,14 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AuthService} from '../../../services/auth.service';
 import {map} from 'rxjs/operators';
+import {DomSanitizer} from '@angular/platform-browser';
 
 export interface CommentaireElement {
   id            : number;
   label         :String;
   owner         :boolean;
+  username      :string;
+  photo         :string;
   date          :number;
 }
 @Component({
@@ -22,18 +25,20 @@ export interface CommentaireElement {
 export class OnClickDialogPostComponent implements OnInit,OnDestroy {
   listPost :PostElement[];
   listCom : CommentaireElement[];
-  Com : CommentaireElement = {id : 0,label : '',owner : false,date : 0};
+  Com : CommentaireElement = {id : 0,label : '',owner : false,username : '',photo: '',date : 0};
   booksNames: string[]=[];
-  
-  constructor(public dialog: MatDialog,private _snackBar: MatSnackBar,
-    public dialogRef: MatDialogRef<OnClickDialogPostComponent>,
-    @Inject(MAT_DIALOG_DATA) public data,
-    private crudService:CrudService,private http:HttpClient,
-    private authService:AuthService) { }
+
+    constructor(public dialog: MatDialog, private _snackBar: MatSnackBar,
+                public dialogRef: MatDialogRef<OnClickDialogPostComponent>,
+                @Inject(MAT_DIALOG_DATA) public data,
+                private crudService: CrudService,
+                private http: HttpClient,
+                private authService: AuthService,
+                private domSanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
       this.getFiles();
-    this.getCom();
+      this.getCom();
 
   }
   onNoClick(): void {
@@ -54,17 +59,20 @@ export class OnClickDialogPostComponent implements OnInit,OnDestroy {
             (data:any) => {
               this.listCom = data._embedded.commentaires;
               this.listCom.forEach(com => {
-                  this.isCommentOwner(com);
-              })
+                  this.linkCommentUser(com);
+
+              });
             },error => {
               console.log(error);
             });
           }
 
-  isCommentOwner(comment){
+    linkCommentUser(comment){
       this.crudService.getlinkItem(comment._links.mzUser.href).subscribe((data:any) => {
           if (data.username === this.authService.currentUser().sub)
               comment.owner=true;
+          comment.username=data.username;
+          this.getPhoto(comment);
       });
   }
    //---------------------------------------------------------------------
@@ -166,5 +174,17 @@ submit() {
     }
     ngOnDestroy(){
 
+    }
+    getPhoto(user) {
+        this.crudService.getProfile(user.username).subscribe(
+            (response: any) => {
+                let file = new Blob([response], {type: 'image/png'});
+                var fileURL = this.domSanitizer.bypassSecurityTrustUrl(URL.createObjectURL(file));
+                console.log();
+                user.photo = fileURL;
+            },
+            error => {
+                console.log(error);
+            });
     }
 }

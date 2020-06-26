@@ -9,7 +9,8 @@
                 <div *ngFor="let book of this.booksNames">
                     <mat-icon (click)="getBook(book)" style="cursor: pointer">description</mat-icon>
                     {{book}}
-                    <mat-icon class="text-danger float-right" (click)="deleteBook(book)" style="cursor: pointer">
+                    <mat-icon *ngIf="authService.isProfessor()"
+                            class="text-danger float-right" (click)="deleteBook(book)" style="cursor: pointer">
                         delete
                     </mat-icon>
                 </div>
@@ -48,27 +49,42 @@
             </form>
 
             <div *ngFor="let com of listCom">
+
                 <div class="card containerComment">
-                    <div class="card-header">
-                        <div class="card-title "><h3 class="position">{{ com.label }}</h3>
-                            <div class="mat-card-actions" *ngIf="authService.isProfessor() || com.owner">
-                            <button mat-icon-button [matMenuTriggerFor]="aboveMenu" class="positionButton">
-                                <mat-icon>more_horiz</mat-icon>
-                            </button>
-                            <mat-menu #aboveMenu="matMenu" yPosition="above">
-                                <button mat-menu-item (click)="deleteCom(com)">Delete</button>
-                            </mat-menu>
+                    <div class="row">
+
+
+                        <div class="card-body">
+                            <div class="column">
+                                <img *ngIf="com.photo === null"
+                                     src="https://previews.123rf.com/images/gmast3r/gmast3r1411/gmast3r141100280/33645487-ic%C3%B4ne-de-profil-avatar-portrait-masculin-personne-d%C3%A9contract%C3%A9e.jpg"
+                                     alt="Avatar" class="avatar-image">
+                                <img *ngIf="com.photo"
+                                     [src]="com.photo"
+                                     alt="Avatar" class="avatar-image">
+
+                                <div class="username-style">{{com.username}}</div>
+                            </div>
+                            <div class="column2">
+                                <div class="card-title ">
+                                    <h3 class="position">{{ com.label }}</h3>
+                                </div>
+
+                            </div>
+                            <div class="mat-card-actions" *ngIf="com.owner">
+                                <button mat-icon-button [matMenuTriggerFor]="aboveMenu" class="positionButton">
+                                    <mat-icon>more_horiz</mat-icon>
+                                </button>
+                                <mat-menu #aboveMenu="matMenu" yPosition="above">
+                                    <button mat-menu-item (click)="deleteCom(com)">Delete</button>
+                                </mat-menu>
+                            </div>
+                            <div class="mat-card-actions">
+                                <div class="pull-right">{{ com.date | date:'short' }}</div>
+                            </div>
                         </div>
                     </div>
-                    </div>
-                    <div class="mat-card-actions">
-                        <div class="pull-right">{{ com.date | date:'short' }}</div>
-                    </div>
                 </div>
-            </div>
-
-            <div class="pull-right">
-
             </div>
         </div>
     </div>
