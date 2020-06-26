@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthService} from '../../services/auth.service';
+import {installTempPackage} from '@angular/cli/tasks/install-package';
 
 declare const $: any;
 declare interface RouteInfo {
@@ -31,10 +33,42 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
   menuItems: any[];
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
+    //-----------------------------------
+    let menuTitles=ROUTES.map(value => {
+        return value.title;
+    });
+    let dashboardIndex=menuTitles.indexOf("Dashboard");
+    let OrgIndex=menuTitles.indexOf("Organisation");
+    let userIndex=menuTitles.indexOf("Utilisateurs");
+    let coursIndex=menuTitles.indexOf("Cours");
+    let postIndex=menuTitles.indexOf("Post");
+
+    if (this.authService.isAdminOrganisation()){
+        {
+            this.menuItems.splice(coursIndex, 1);
+            menuTitles.splice(coursIndex, 1);
+            postIndex = menuTitles.indexOf('Post');
+        }
+        this.menuItems.splice(postIndex,1);
+    }
+    if (this.authService.isProfessor() || this.authService.isStudent()){
+        {
+            this.menuItems.splice(dashboardIndex, 1);
+            menuTitles.splice(dashboardIndex, 1);
+            userIndex = menuTitles.indexOf('Utilisateurs');
+        }
+        {
+            this.menuItems.splice(userIndex, 1);
+            menuTitles.splice(userIndex, 1);
+            OrgIndex = menuTitles.indexOf('Organisation');
+        }
+        this.menuItems.splice(OrgIndex,1);
+    }
+
   }
   isMobileMenu() {
       if ($(window).width() > 991) {

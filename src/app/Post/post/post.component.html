@@ -1,19 +1,24 @@
 <div class="main-content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col col-md-9">
-                <button mat-raised-button (click)="openAddDialog()" class="btn btn-danger">Create Post</button>
+            <div class="col col-md-12">
+                <button *ngIf="authService.isProfessor()"
+                        mat-raised-button (click)="openAddDialog()" class="btn btn-danger">Create Post
+                </button>
                 <div *ngFor="let post of listPost">
                     <div class="card width">
                         <div class="card-header">
-                            <button mat-icon-button [matMenuTriggerFor]="aboveMenu" class="float-right">
-                                <mat-icon>more_horiz</mat-icon>
-                            </button>
-                            <mat-menu #aboveMenu="matMenu" yPosition="above">
-                                <button mat-menu-item (click)="openModifyDialog(post)">Edit</button>
-                                <button mat-menu-item (click)="deletePost(post)">Delete</button>
-                            </mat-menu>
-                            <h3 class="card-title " style="cursor: pointer" (click)="onClickDialog(post)">{{ post.titre}}</h3>
+                            <div class="mat-card-actions" *ngIf="authService.isProfessor()">
+                                <button mat-icon-button [matMenuTriggerFor]="aboveMenu" class="float-right">
+                                    <mat-icon>more_horiz</mat-icon>
+                                </button>
+                                <mat-menu #aboveMenu="matMenu" yPosition="above">
+                                    <button mat-menu-item (click)="openModifyDialog(post)">Edit</button>
+                                    <button mat-menu-item (click)="deletePost(post)">Delete</button>
+                                </mat-menu>
+                            </div>
+                            <h3 class="card-title " style="cursor: pointer"
+                                (click)="onClickDialog(post)">{{ post.titre}}</h3>
                         </div>
                         <div class="mat-card-actions">
                             <div class="pull-right">{{post.dateDebut | date:'short' }}</div>

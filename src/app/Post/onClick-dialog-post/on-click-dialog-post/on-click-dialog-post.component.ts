@@ -1,4 +1,4 @@
-import {Component, OnInit, Inject} from '@angular/core';
+import {Component, OnInit, Inject, OnDestroy} from '@angular/core';
 import {CrudService} from 'app/services/crud.service';
 import {MatDialogRef, MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
 import {PostElement} from 'app/Post/post/post.component';
@@ -6,10 +6,12 @@ import {EditDialogPostComponent} from 'app/Post/edit-dialog-post/edit-dialog-pos
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AuthService} from '../../../services/auth.service';
+import {map} from 'rxjs/operators';
 
 export interface CommentaireElement {
   id            : number;
   label         :String;
+  owner         :boolean;
   date          :number;
 }
 @Component({
@@ -17,10 +19,10 @@ export interface CommentaireElement {
     templateUrl: './on-click-dialog-post.component.html',
     styleUrls: ['./on-click-dialog-post.component.css']
 })
-export class OnClickDialogPostComponent implements OnInit {
+export class OnClickDialogPostComponent implements OnInit,OnDestroy {
   listPost :PostElement[];
   listCom : CommentaireElement[];
-  Com : CommentaireElement = {id : 0,label : '',date : 0};
+  Com : CommentaireElement = {id : 0,label : '',owner : false,date : 0};
   booksNames: string[]=[];
   
   constructor(public dialog: MatDialog,private _snackBar: MatSnackBar,
@@ -30,6 +32,7 @@ export class OnClickDialogPostComponent implements OnInit {
     private authService:AuthService) { }
 
   ngOnInit(): void {
+      this.getFiles();
     this.getCom();
     this.getFiles();
   }
@@ -40,7 +43,7 @@ export class OnClickDialogPostComponent implements OnInit {
     this.crudService.getItems('posts').subscribe(
         (data) => {
           // @ts-ignore
-          this.listPost = data._embedded.posts;    
+          this.listPost = data._embedded.posts;
         },error => {
           console.log(error);
         });
@@ -48,22 +51,34 @@ export class OnClickDialogPostComponent implements OnInit {
 
   getCom() {
         this.crudService.getlinkItem(this.data.post._links.commentaires.href).subscribe(
-            (data) => {
-              // @ts-ignore
-              this.listCom = data._embedded.commentaires;    
+            (data:any) => {
+              this.listCom = data._embedded.commentaires;
+              this.listCom.forEach(com => {
+                  this.isCommentOwner(com);
+              })
             },error => {
               console.log(error);
             });
-          }    
+          }
+
+  isCommentOwner(comment){
+      this.crudService.getlinkItem(comment._links.mzUser.href).subscribe((data:any) => {
+          if (data.username === this.authService.currentUser().sub)
+              comment.owner=true;
+      });
+  }
    //---------------------------------------------------------------------
    addCom(){
-     this.Com.date = Date.now();
-     //this.crudService.addItem('commentaires',this.Com);
-     this.crudService.addLinkItem(this.Com,this.authService.currentUser().sub,this.data.post.id);
-     setTimeout(()=>{
-      this.Com.label='';
-      this.getCom();
-    },1000);
+      if (this.Com.label != ''){
+          this.Com.date = Date.now();
+          //this.crudService.addItem('commentaires',this.Com);
+          this.crudService.addLinkItem(this.Com,this.authService.currentUser().sub,this.data.post.id);
+          setTimeout(()=>{
+              this.Com.label='';
+              this.getCom();
+          },1000);
+      }
+
     
    }
    //---------------------------------------------------------------------
@@ -147,6 +162,9 @@ submit() {
                 console.log(error);
             }
         );
+
+    }
+    ngOnDestroy(){
 
     }
 }

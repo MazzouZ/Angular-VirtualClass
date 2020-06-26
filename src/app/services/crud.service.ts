@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AuthService} from './auth.service';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CrudService {
   obj :any;
-  objUser :any;
   url='http://localhost:8085/';
-  public resultdata:any;
+  public resultdata:any
 
-  constructor(private http: HttpClient,private authService:AuthService) { }
+  constructor(private http: HttpClient,
+              private authService:AuthService) { }
 
   getItems(type :String) {
     return this.http.get(this.url+type,
@@ -137,5 +138,29 @@ export class CrudService {
   getCurrentUser(){
     return this.http.get('http://localhost:8085/mzUsers/search/byUsername?username='+this.authService.currentUser().sub,
       {headers:new HttpHeaders({'Authorization':this.authService.loadToken()})});
+  }
+  getOrganizationByUser(user){
+      return this.http.get(user._links.organisation.href,
+          {headers:new HttpHeaders({'Authorization':this.authService.loadToken()})});
+  }
+  createUser(organizationId,role,object){
+      return this.http.post(this.url+'addUser/'+organizationId+'/'+role, object,
+          {headers:new HttpHeaders({'Authorization':this.authService.loadToken()})}).subscribe(
+          data =>{
+              console.log(data);
+          },error => {
+              console.log(error);
+/*
+              this.authService.logout();
+*/
+          }
+      );
+  }
+  getProfile(username){
+      const httpOptions = {
+          'responseType'  : 'blob' as 'json'
+      };
+      return this.http.get(this.url+'getProfile/'+username,
+          httpOptions);
   }
 }

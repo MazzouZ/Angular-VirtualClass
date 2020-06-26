@@ -10,6 +10,7 @@ import { CrudService } from 'app/services/crud.service';
 import {NotificationsComponent} from '../notifications/notifications.component';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {AuthService} from '../services/auth.service';
+import {UserData} from '../user-list/user-list.component';
 
 export interface OrganisationElement {
   label: String;
@@ -42,7 +43,25 @@ export class OrganisationsComponent implements OnInit {
         this.getOrg();
   }
   getOrg() {
-    this.crudService.getItems('organisations').subscribe(
+    {
+      this.crudService.getCurrentUser().subscribe(user => {
+        this.crudService.getOrganizationByUser(user).subscribe(
+            (organisation) => {
+              var data: any[] = [organisation];
+              let listOrg:OrganisationElement[]=data;
+              this.dataSource=new MatTableDataSource();
+              this.dataSource = new MatTableDataSource(listOrg);
+              this.dataSource.paginator = this.paginator;
+              this.dataSource.sort = this.sort;
+            },error => {
+              console.log(error);
+              this.authService.logout();
+            });
+      }, error => {
+        console.error(error);
+      });
+    }
+   /* this.crudService.getItems('organisations').subscribe(
         (data) => {
           // @ts-ignore
           let listOrg:OrganisationElement[]=data._embedded.organisations;
@@ -53,7 +72,7 @@ export class OrganisationsComponent implements OnInit {
         },error => {
           console.log(error);
           this.authService.logout();
-        });
+        });*/
   }
   //---------------------------------------------------------------------
   applyFilter(event: Event) {

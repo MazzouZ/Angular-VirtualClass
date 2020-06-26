@@ -18,7 +18,20 @@
               <!-- photo Column ----------------------------------------------->
                         <ng-container matColumnDef="photo">
                             <th class="text-primary" mat-header-cell *matHeaderCellDef mat-sort-header> Photo </th>
-                            <td mat-cell *matCellDef="let row"> {{row.photo}} </td>
+                            <td mat-cell *matCellDef="let row">
+                                <img *ngIf="row.photo === null"
+                                        src="https://previews.123rf.com/images/gmast3r/gmast3r1411/gmast3r141100280/33645487-ic%C3%B4ne-de-profil-avatar-portrait-masculin-personne-d%C3%A9contract%C3%A9e.jpg" class="avatar-image"/>
+                                <img *ngIf="row.photo"
+                                     [src]="row.photo" class="avatar-image"
+                                />
+                                <app-material-file-upload class="float-left"
+                                        (complete)="onFileComplete($event,row)"
+                                        [target]="'http://localhost:8085/addProfile/'+row.username"
+                                        [param]="'file'"
+                                        [text]="''"
+                                        [accept]="'image/png'">
+                                </app-material-file-upload>
+                            </td>
                         </ng-container>
               <!-- username --------------------------------------------------->
                         <ng-container matColumnDef="username">
@@ -41,7 +54,8 @@
                             <td mat-cell *matCellDef="let row">
                                 <mat-chip-list aria-label="Fish selection" >
                                     <button mat-raised-button selected class="btn btn-warning btn-link btn-just-icon" (click)="openModifyDialog(row)"><mat-icon>edit</mat-icon></button>
-                                        <button mat-raised-button selected class="btn btn-danger btn-link  btn-just-icon" (click)="deleteUser(row)"><mat-icon>delete</mat-icon></button>
+                                    <button *ngIf="!(authService.currentUser().sub === row.username)"
+                                            mat-raised-button selected class="btn btn-danger btn-link  btn-just-icon" (click)="deleteUser(row)"><mat-icon>delete</mat-icon></button>
                                 </mat-chip-list>
                             </td>
                         </ng-container>

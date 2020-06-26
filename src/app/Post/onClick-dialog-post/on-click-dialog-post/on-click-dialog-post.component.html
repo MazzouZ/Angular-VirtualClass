@@ -1,70 +1,75 @@
 <mat-dialog-content class="mat-typography">
-<div class="card">
-    <div class="card-header card-header-danger mat-dialog-title">
-        <h3 class="card-title ">{{data.post.titre}}</h3>
-    </div>
-    <div class="card-body">
-        <h5>{{ data.post.description}}</h5>
-        <div *ngIf="this.booksNames" class="col-md-12">
-            <div *ngFor="let book of this.booksNames">
-                <mat-icon (click)="getBook(book)" style="cursor: pointer">description</mat-icon>
-                {{book}}
-                <mat-icon class="text-danger float-right" (click)="deleteBook(book)" style="cursor: pointer">
-                    delete
-                </mat-icon>
+    <div class="card">
+        <div class="card-header card-header-danger mat-dialog-title">
+            <h3 class="card-title ">{{data.post.titre}}</h3>
+        </div>
+        <div class="card-body">
+            <h5>{{ data.post.description}}</h5>
+            <div *ngIf="this.booksNames" class="col-md-12">
+                <div *ngFor="let book of this.booksNames">
+                    <mat-icon (click)="getBook(book)" style="cursor: pointer">description</mat-icon>
+                    {{book}}
+                    <mat-icon class="text-danger float-right" (click)="deleteBook(book)" style="cursor: pointer">
+                        delete
+                    </mat-icon>
+                </div>
+            </div>
+            <div *ngIf="!this.booksNames">
+                Aucun support de cours est disponible dans le moment ;(
+            </div>
+
+
+            <div style="text-align:center" class="m-4" *ngIf="authService.isProfessor()">
+                <app-material-file-upload (complete)="onFileComplete($event)"
+                                          [target]="'http://localhost:8085/chargerFichier/'+data.post.id"
+                                          [param]="'file'"
+                                          [text]="'Ajouter un support de cours'"
+                                          [accept]="'application/pdf'"
+                >
+                </app-material-file-upload>
             </div>
         </div>
-        <div *ngIf="!this.booksNames">
-            Aucun support de cours est disponible dans le moment ;(
-        </div>
+        <div class="mat-card-actions">
 
+            <form (ngSubmit)="submit()" #formControl="ngForm">
 
-        <div style="text-align:center" class="m-4">
-            <app-material-file-upload (complete)="onFileComplete($event)"
-                                      [target]="'http://localhost:8085/chargerFichier/'+data.post.id"
-                                      [param]="'file'"
-                                      [text]="'Ajouter un support de cours'">
-            </app-material-file-upload>
-        </div>
-    </div>
-    <div class="mat-card-actions">
+                <div class="form">
+                    <mat-form-field class="width position">
+                        <input matInput placeholder="Ajouter un commentaire" [type]="submit" [(ngModel)]="Com.label"
+                               name="label">
+                    </mat-form-field>
+                </div>
 
-     <form  (ngSubmit)="submit()" #formControl="ngForm">
-
-        <div class="form">
-            <mat-form-field class="width position">
-                <input matInput placeholder="Ajouter un commentaire" [type]="submit" [(ngModel)]="Com.label" name="label" required>
-            </mat-form-field>
-        </div>
-
-        <div class="positionButton">
-            <button mat-icon-button (click)="addCom()" class="btn btn-danger">
-                <mat-icon>send</mat-icon>
-            </button>
-        </div>
-    </form>
-
-        <div *ngFor="let com of listCom">
-            <div class="card widthx borderx">
-                <div class="card-header">
-                    <div class="card-title "><h5 class="position">{{ com.label }}</h5>
-                        <button mat-icon-button [matMenuTriggerFor]="aboveMenu" class="positionButton">
-                        <mat-icon>more_horiz</mat-icon>
+                <div class="positionButton">
+                    <button mat-icon-button (click)="addCom()" class="btn btn-danger">
+                        <mat-icon>send</mat-icon>
                     </button>
-                    <mat-menu #aboveMenu="matMenu" yPosition="above">
-                        <button mat-menu-item (click)="deleteCom(com)">Delete</button>
-                    </mat-menu></div>
-                    
                 </div>
-                <div class="mat-card-actions">
-                    <div class="pull-right">{{ com.date | date:'short' }}</div>
-                </div>
-                </div >
-        </div>
-    
-        <div class="pull-right">
+            </form>
 
+            <div *ngFor="let com of listCom">
+                <div class="card containerComment">
+                    <div class="card-header">
+                        <div class="card-title "><h3 class="position">{{ com.label }}</h3>
+                            <div class="mat-card-actions" *ngIf="authService.isProfessor() || com.owner">
+                            <button mat-icon-button [matMenuTriggerFor]="aboveMenu" class="positionButton">
+                                <mat-icon>more_horiz</mat-icon>
+                            </button>
+                            <mat-menu #aboveMenu="matMenu" yPosition="above">
+                                <button mat-menu-item (click)="deleteCom(com)">Delete</button>
+                            </mat-menu>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="mat-card-actions">
+                        <div class="pull-right">{{ com.date | date:'short' }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pull-right">
+
+            </div>
         </div>
     </div>
-</div>
 </mat-dialog-content>  

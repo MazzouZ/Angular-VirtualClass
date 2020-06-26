@@ -47,6 +47,15 @@
                     </mat-form-field>
                 </div>
 
+                <div class="form">
+                    <mat-form-field>
+                        <mat-label>Le role</mat-label>
+                        <mat-select [(value)]="data.role" required>
+                            <mat-option [value]="'Professor'">Professeur</mat-option>
+                            <mat-option [value]="'Student'">Etudiant</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
                 <div mat-dialog-actions>
                     <button mat-button [type]="submit" [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="addUser()" class="btn btn-danger pull-right">Ajouter</button>
                     <button mat-button (click)="onNoClick()" tabindex="-1">Annuler</button>
