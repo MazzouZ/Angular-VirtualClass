@@ -16,7 +16,7 @@ export class OnClickDialogeDevoirsComponent implements OnInit {
   
   //listPost :DevoirElement[];
   listCom : CommentaireElement[];
-  Com : CommentaireElement = {id : 0,label : '',date : 0};
+  Com : CommentaireElement = {id : 0,label : '',owner : false,username : '',photo: '',date : 0};
   booksNames: string[]=[];
 
   constructor(public dialog: MatDialog,private _snackBar: MatSnackBar,

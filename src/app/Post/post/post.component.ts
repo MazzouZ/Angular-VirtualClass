@@ -44,8 +44,6 @@ export class PostComponent implements OnInit {
     console.log(this.courP);
     this.getPosts();
     this.getDevoirs();
-    
-
   }
 
   // getPosts() {
@@ -73,14 +71,14 @@ export class PostComponent implements OnInit {
           (data1:any)=>{
            this.crudService.getlinkItem(data1._links.userHasDevoirs.href).subscribe(
             (data) => {
+              this.nbrComplet=0;
+              this.nbrNonComplet=0;
               // @ts-ignore
               data._embedded.userHasDevoirs.forEach((PHF,i)=>{
                 this.http.get(PHF._links.devoir.href,
                   {headers:new HttpHeaders({'Authorization':this.authService.loadToken()})}).subscribe(
                   (data2: any) => {
-                    this.nbrComplet=0;
-                    this.nbrNonComplet=0;
-                       if(PHF.etat)
+                       if(PHF.etat === true)
                             this.nbrComplet++;
                        else
                             this.nbrNonComplet++;
