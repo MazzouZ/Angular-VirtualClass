@@ -7,7 +7,7 @@ import {AdminLayoutComponent} from './layouts/admin-layout/admin-layout.componen
 import {LoginComponent} from './login/login.component';
 
 const routes: Routes = [
-    {
+    { 
         path: '',
         redirectTo: 'organisations',
         pathMatch: 'full',

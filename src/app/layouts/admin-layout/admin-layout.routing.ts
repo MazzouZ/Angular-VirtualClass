@@ -14,6 +14,7 @@ import { CoursComponent } from 'app/Cours/cours/cours.component';
 import { PostComponent } from 'app/Post/post/post.component';
 import {LoginComponent} from '../../login/login.component';
 import { DevoirsComponent } from 'app/devoirs/devoirs.component';
+import { AgendaComponent } from 'app/agenda/agenda.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -64,6 +65,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'cours',          component: CoursComponent },
     { path: 'post',           component: PostComponent },
     { path: 'devoir',         component: DevoirsComponent },
+    { path: 'agenda',         component: AgendaComponent },
     { path: 'user-profile',   component: UserProfileComponent },
     { path: 'table-list',     component: TableListComponent },
     { path: 'typography',     component: TypographyComponent },

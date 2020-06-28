@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from 'app/services/auth.service';
 import { DevoirElement } from '../devoirs.component';
 import { CommentaireElement } from 'app/Post/onClick-dialog-post/on-click-dialog-post/on-click-dialog-post.component';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-on-click-dialoge-devoirs',
@@ -22,8 +23,10 @@ export class OnClickDialogeDevoirsComponent implements OnInit {
   constructor(public dialog: MatDialog,private _snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<OnClickDialogeDevoirsComponent>,
     @Inject(MAT_DIALOG_DATA) public data,
-    private crudService:CrudService,private http:HttpClient,
-    private authService:AuthService) { }
+    private crudService:CrudService,
+    private http:HttpClient,
+    private authService:AuthService,
+    private domSanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
       this.getCom();
@@ -37,13 +40,18 @@ export class OnClickDialogeDevoirsComponent implements OnInit {
           this.crudService.getlinkItem(this.data.devoir._links.commentaires.href).subscribe(
               (data) => {
                 // @ts-ignore
-                this.listCom = data._embedded.commentaires;    
+                this.listCom = data._embedded.commentaires;
+                this.listCom.forEach(com => {
+                  this.linkCommentUser(com);
+
+              });    
               },error => {
                 console.log(error);
               });
             }    
      //---------------------------------------------------------------------
      addCom(){
+      if (this.Com.label != ''){
        this.Com.date = Date.now();
        //this.crudService.addItem('commentaires',this.Com);
        this.crudService.addLinkItemDevoir(this.Com,this.authService.currentUser().sub,this.data.devoir.id);
@@ -51,8 +59,30 @@ export class OnClickDialogeDevoirsComponent implements OnInit {
         this.Com.label='';
         this.getCom();
       },1000);
+    }
       
      }
+     linkCommentUser(comment){
+      this.crudService.getlinkItem(comment._links.mzUser.href).subscribe((data:any) => {
+          if (data.username === this.authService.currentUser().sub)
+              comment.owner=true;
+          comment.username=data.username;
+          this.getPhoto(comment);
+      });
+  }
+
+  getPhoto(user) {
+    this.crudService.getProfile(user.username).subscribe(
+        (response: any) => {
+            let file = new Blob([response], {type: 'image/png'});
+            var fileURL = this.domSanitizer.bypassSecurityTrustUrl(URL.createObjectURL(file));
+            console.log();
+            user.photo = fileURL;
+        },
+        error => {
+            console.log(error);
+        });
+}
     //---------------------------------------------------------------------
   deleteCom(row){
     this.crudService.deleteItem(row);
