@@ -11,6 +11,7 @@ import {NotificationsComponent} from '../notifications/notifications.component';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {AuthService} from '../services/auth.service';
 import {UserData} from '../user-list/user-list.component';
+import {DomSanitizer} from '@angular/platform-browser';
 
 export interface OrganisationElement {
   label: String;
@@ -34,7 +35,8 @@ export class OrganisationsComponent implements OnInit {
   constructor(private crudService:CrudService,
               public dialog: MatDialog,
               private _snackBar: MatSnackBar,
-              private authService: AuthService){}
+              private authService: AuthService,
+              private domSanitizer: DomSanitizer){}
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -49,6 +51,9 @@ export class OrganisationsComponent implements OnInit {
             (organisation) => {
               var data: any[] = [organisation];
               let listOrg:OrganisationElement[]=data;
+              listOrg.forEach(org => {
+                this.getPhoto(org);
+              });
               this.dataSource=new MatTableDataSource();
               this.dataSource = new MatTableDataSource(listOrg);
               this.dataSource.paginator = this.paginator;
@@ -120,7 +125,24 @@ export class OrganisationsComponent implements OnInit {
       panelClass: ['snackbarDelete']
     });
   }
+
+  onFileComplete($event: string, row) {
+    this.getPhoto(row);
   }
+
+  getPhoto(org) {
+    this.crudService.getOrganisationPhoto(org.id).subscribe(
+        (response: any) => {
+          let file = new Blob([response], {type: 'image/png'});
+          var fileURL = this.domSanitizer.bypassSecurityTrustUrl(URL.createObjectURL(file));
+          console.log();
+          org.photo = fileURL;
+        },
+        error => {
+          console.log(error);
+        });
+  }
+}
 
   
 

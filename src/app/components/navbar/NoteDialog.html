@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<h1 mat-dialog-title>Assigner une Note</h1>
+<div mat-dialog-content>
+    <p>Devoir "{{data.devoir.titre}}" de "{{data.user.username}}"</p>
+
+   <div *ngIf="fileName" (click)="openFile(fileName)" style="cursor:pointer">
+       <mat-icon>note_add</mat-icon> {{fileName}}
+   </div>
+    <mat-form-field>
+        <mat-label>Assigner Une Note</mat-label>
+        <input matInput [(ngModel)]="data.note">
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Valider</button>
+</div>
+</body>
+</html>

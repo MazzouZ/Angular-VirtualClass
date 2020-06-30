@@ -163,4 +163,11 @@ export class CrudService {
       return this.http.get(this.url+'getProfile/'+username,
           httpOptions);
   }
+    getOrganisationPhoto(id){
+        const httpOptions = {
+            'responseType'  : 'blob' as 'json'
+        };
+        return this.http.get(this.url+'getOrgPhoto/'+id,
+            httpOptions);
+    }
 }

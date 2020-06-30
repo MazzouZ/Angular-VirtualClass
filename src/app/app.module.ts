@@ -89,6 +89,7 @@ import { DevoirsComponent } from './devoirs/devoirs.component';
 import { AddDialogeDevoirsComponent } from './devoirs/add-dialoge-devoirs/add-dialoge-devoirs.component';
 import { EditDialogeDevoirsComponent } from './devoirs/edit-dialoge-devoirs/edit-dialoge-devoirs.component';
 import { OnClickDialogeDevoirsComponent } from './devoirs/on-click-dialoge-devoirs/on-click-dialoge-devoirs.component';
+import {NoteDialog} from './components/navbar/navbar.component';
 
 
 
@@ -172,7 +173,8 @@ import { OnClickDialogeDevoirsComponent } from './devoirs/on-click-dialoge-devoi
     DevoirsComponent,
     AddDialogeDevoirsComponent,
     EditDialogeDevoirsComponent,
-    OnClickDialogeDevoirsComponent
+    OnClickDialogeDevoirsComponent,
+    NoteDialog
 
   ],
   providers: [AuthService,CrudService],
