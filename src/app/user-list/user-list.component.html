@@ -24,7 +24,7 @@
                                 <img *ngIf="row.photo"
                                      [src]="row.photo" class="avatar-image"
                                 />
-                                <app-material-file-upload class="float-left"
+                                <app-material-file-upload class="float"
                                         (complete)="onFileComplete($event,row)"
                                         [target]="'http://localhost:8085/addProfile/'+row.username"
                                         [param]="'file'"

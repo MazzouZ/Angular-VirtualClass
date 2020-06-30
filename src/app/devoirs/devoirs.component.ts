@@ -32,6 +32,7 @@ export class DevoirsComponent implements OnInit {
     listHasDevoirs: any[] = [];
     listDevoirsComplet: DevoirElement[] = [];
     listDevoirsIncomplet: DevoirElement[] = [];
+    listDevoirsProf: DevoirElement[] = [];
     sub: Subscription;
     nbrComplet: number = 0;
     nbrNonComplet: number = 0;
@@ -48,6 +49,7 @@ export class DevoirsComponent implements OnInit {
     getDevoirs() {
         this.listDevoirsComplet = [];
         this.listDevoirsIncomplet = [];
+        this.listDevoirsProf= [];
         this.crudService.getCurrentUser().subscribe(
             (data1: any) => {
                 this.crudService.getlinkItem(data1._links.userHasDevoirs.href).subscribe(
@@ -63,6 +65,10 @@ export class DevoirsComponent implements OnInit {
                                     } else {
                                         this.listDevoirsIncomplet.push(data2);
                                     }
+                                    if(PHF.createdBy === this.authService.currentUser().sub)
+                                      {
+                                          this.listDevoirsProf.push(data2);
+                                      }
 
                                 }
                                 , error => {

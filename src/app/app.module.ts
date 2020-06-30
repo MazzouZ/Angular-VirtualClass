@@ -90,9 +90,13 @@ import { AddDialogeDevoirsComponent } from './devoirs/add-dialoge-devoirs/add-di
 import { EditDialogeDevoirsComponent } from './devoirs/edit-dialoge-devoirs/edit-dialoge-devoirs.component';
 import { OnClickDialogeDevoirsComponent } from './devoirs/on-click-dialoge-devoirs/on-click-dialoge-devoirs.component';
 import {NoteDialog} from './components/navbar/navbar.component';
+import { AgendaComponent } from './agenda/agenda.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import dayGridPlugin from '@fullcalendar/daygrid'; 
 
-
-
+FullCalendarModule.registerPlugins([ // register FullCalendar plugins
+  dayGridPlugin,
+]);
 
 @NgModule({
     imports: [
@@ -148,6 +152,7 @@ import {NoteDialog} from './components/navbar/navbar.component';
         PortalModule,
         ScrollingModule,
         MatInputModule,
+        FullCalendarModule,
         /* AgmCoreModule.forRoot({
            apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
          }),*/
@@ -174,7 +179,8 @@ import {NoteDialog} from './components/navbar/navbar.component';
     AddDialogeDevoirsComponent,
     EditDialogeDevoirsComponent,
     OnClickDialogeDevoirsComponent,
-    NoteDialog
+    NoteDialog,
+    AgendaComponent
 
   ],
   providers: [AuthService,CrudService],
