@@ -11,7 +11,7 @@
                 <div *ngFor="let book of this.booksNames">
                     <mat-icon (click)="getBook(book)" style="cursor: pointer">description</mat-icon>
                     {{book}}
-                    <mat-icon *ngIf="authService.isProfessor()" 
+                    <mat-icon *ngIf="authService.isProfessor()"
                     class="text-danger float-right" (click)="deleteBook(book)" style="cursor: pointer">
                         delete
                     </mat-icon>
@@ -22,11 +22,11 @@
             </div>
     
     
-            <div style="text-align:center" class="m-4">
+            <div style="text-align:center" class="m-4" *ngIf="authService.isStudent()">
                 <app-material-file-upload (complete)="onFileComplete($event)"
                                           [target]="'http://localhost:8085/chargerDevoirFichier/'+data.devoir.id+'/'+authService.currentUser().sub"
                                           [param]="'file'"
-                                          [text]="'Ajouter un support de cours'">
+                                          [text]="'Livrer le devoir'">
                 </app-material-file-upload>
             </div>
         </div>
@@ -70,14 +70,9 @@
                             </div>
 
                         </div>
-                        <div class="mat-card-actions" *ngIf="com.owner">
+                        <div class="mat-card-actions" *ngIf="com.owner || authService.isProfessor()">
                             <button mat-icon-button [matMenuTriggerFor]="aboveMenu" class="positionButton">
-                               <div *ngIf="authService.isProfessor()"> 
                                    <mat-icon >more_horiz</mat-icon>
-                                </div>
-                               <div *ngIf="authService.isStudent()">
-                                    <mat-icon *ngIf="this.authService.currentUser().sub===com.username">more_horiz</mat-icon>
-                                </div>
                             </button>
                             <mat-menu #aboveMenu="matMenu" yPosition="above">
                                 <button mat-menu-item (click)="deleteCom(com)">Delete</button>
@@ -93,4 +88,3 @@
         </div>
     </div>
     </mat-dialog-content>  
-    

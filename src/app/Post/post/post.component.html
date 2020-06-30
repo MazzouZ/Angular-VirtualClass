@@ -28,7 +28,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4" *ngIf="authService.isStudent()">
                         <div class="card example-small-box text-white">
                             <div class="card-header">
                                 <div class="position"><h6><strong>Devoir complet :</strong></h6></div>

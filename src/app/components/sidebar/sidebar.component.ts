@@ -14,7 +14,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/organisations', title: 'Organisation',  icon: 'account_balance', class: '' },
     { path: '/users', title: 'Utilisateurs',  icon:'person', class: '' },
     { path: '/cours', title: 'Cours',  icon:'book', class: '' },
-    //{ path: '/post', title: 'Post',  icon:'storage', class: '' },
+   // { path: '/post', title: 'Post',  icon:'storage', class: '' },
     { path: '/devoir', title: 'Devoir',  icon:'assignment', class: '' },
     { path: '/agenda', title: 'Agenda',  icon:'calendar_today', class: '' }
     /*{ path: '/user-profile', title: 'User Profile',  icon:'person', class: '' },
@@ -46,15 +46,21 @@ export class SidebarComponent implements OnInit {
     let OrgIndex=menuTitles.indexOf("Organisation");
     let userIndex=menuTitles.indexOf("Utilisateurs");
     let coursIndex=menuTitles.indexOf("Cours");
-    let postIndex=menuTitles.indexOf("Post");
+    let devoirIndex=menuTitles.indexOf("Devoir");
+    let agendaIndex=menuTitles.indexOf("Agenda");
 
     if (this.authService.isAdminOrganisation()){
         {
             this.menuItems.splice(coursIndex, 1);
             menuTitles.splice(coursIndex, 1);
-            postIndex = menuTitles.indexOf('Post');
+            devoirIndex = menuTitles.indexOf('Devoir');
         }
-        this.menuItems.splice(postIndex,1);
+        {
+            this.menuItems.splice(devoirIndex, 1);
+            menuTitles.splice(devoirIndex, 1);
+            agendaIndex = menuTitles.indexOf('Agenda');
+        }
+        this.menuItems.splice(agendaIndex, 1);
     }
     if (this.authService.isProfessor() || this.authService.isStudent()){
         {

@@ -65,11 +65,11 @@ export class DevoirsComponent implements OnInit {
                                     } else {
                                         this.listDevoirsIncomplet.push(data2);
                                     }
+                                    console.log(PHF);
                                     if(PHF.createdBy === this.authService.currentUser().sub)
                                       {
                                           this.listDevoirsProf.push(data2);
                                       }
-
                                 }
                                 , error => {
                                     console.log(error);
